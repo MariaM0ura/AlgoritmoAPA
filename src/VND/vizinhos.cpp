@@ -1,144 +1,129 @@
 #include "headers/vizinhos.h"
 #include <iostream>
 #include <vector>
-#include <algorithm> 
+#include <algorithm>
+#include <limits>
 
+// Definição da classe Fruta e construtor
 Fruta::Fruta(int n, const std::vector<int>& t, const std::vector<int>& p, const std::vector<int>& m, const std::vector<std::vector<int>>& matriz)
     : n(n), t(t), p(p), m(m), matriz(matriz) {}
 
-struct Pedido {
-    int indice;
-    int tempoProducao;
-    int prazo;
-    int multaPorMinuto;
-};
 
-// Função que calcula o valor total da solução (custo/multa) para uma sequência de pedidos
-int calcularCusto(const std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz) {
+
+/*
+    calcula o custo total da solução
+*/
+int Fruta::calcularCusto(const std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz) const {
+    int n = pedidos.size();
     int tempoAtual = 0;
     int valorTotalSolucao = 0;
-    
-    for (int i = 0; i < pedidos.size(); ++i) {
-        int producao = pedidos[i].tempoProducao;
-        int prazo = pedidos[i].prazo;
-        int multaPorMinuto = pedidos[i].multaPorMinuto;
 
+    for (int i = 0; i < n; ++i) {
+        const Pedido& pedido = pedidos[i];
+        int producao = pedido.tempoProducao;
         int tempoConclusao = tempoAtual + producao;
-        int multa = std::max(0, multaPorMinuto * (tempoConclusao - prazo));
+
+        int multa = 0;
+        if (tempoConclusao > pedido.prazo) {
+            multa = std::max(0, pedido.multaPorMinuto * (tempoConclusao - pedido.prazo));
+        }
+
+        tempoAtual += producao;
         valorTotalSolucao += multa;
-        
-        tempoAtual = tempoConclusao;
-        if (i < pedidos.size() - 1) {
-            tempoAtual += matriz[pedidos[i].indice][pedidos[i + 1].indice];
+
+        if (i < n - 1) {
+            tempoAtual += matriz[pedido.indice][pedidos[i + 1].indice];
         }
     }
-    
     return valorTotalSolucao;
 }
 
-// Função para aplicar a primeira vizinhança: troca dois pedidos
-bool vizinhancaTroca(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
-    for (int i = 0; i < pedidos.size(); ++i) {
-        for (int j = i + 1; j < pedidos.size(); ++j) {
-            std::swap(pedidos[i], pedidos[j]);
-            int novoCusto = calcularCusto(pedidos, matriz);
-            
-            if (novoCusto < melhorCusto) {
-                melhorCusto = novoCusto;
-                return true; // Encontrou melhoria
+// Função swap com troca por menor multa
+bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
+    int tamanho = pedidos.size();
+    bool encontrouMelhoria = false;
+    int melhor_custo = melhorCusto;
+    std::vector<Pedido> melhor_solucao = pedidos;
+
+    for (int i = 0; i < tamanho - 1; ++i) {
+        for (int j = i + 1; j < tamanho; ++j) {
+            // Troca de pedidos
+            std::vector<Pedido> solucao_vizinha = pedidos;
+            std::swap(solucao_vizinha[i], solucao_vizinha[j]);
+
+            // Converter a solução vizinha para um vetor de índices
+            std::vector<int> ordem_vizinha(tamanho);
+            for (int k = 0; k < tamanho; ++k) {
+                ordem_vizinha[k] = solucao_vizinha[k].indice;
             }
-            std::swap(pedidos[i], pedidos[j]); // Reverter a troca
+
+            // Calcular o custo da nova solução
+            int custo_vizinho = calcularCusto(solucao_vizinha, matriz);
+
+            // Se o custo da solução vizinha for menor, atualizar a melhor solução
+            if (custo_vizinho < melhor_custo) {
+                melhor_custo = custo_vizinho;
+                melhor_solucao = solucao_vizinha;
+                encontrouMelhoria = true;
+            }
         }
     }
-    return false;
-}
 
-// Função para aplicar a segunda vizinhança: mover um pedido para outra posição
-bool vizinhancaMover(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
-    for (int i = 0; i < pedidos.size(); ++i) {
-        Pedido pedidoMovido = pedidos[i];
-        
-        for (int j = 0; j < pedidos.size(); ++j) {
-            if (i == j) continue;
-            
-            pedidos.erase(pedidos.begin() + i);
-            pedidos.insert(pedidos.begin() + j, pedidoMovido);
-            int novoCusto = calcularCusto(pedidos, matriz);
-            
-            if (novoCusto < melhorCusto) {
-                melhorCusto = novoCusto;
-                return true; // Encontrou melhoria
-            }
-            pedidos.erase(pedidos.begin() + j);
-            pedidos.insert(pedidos.begin() + i, pedidoMovido); // Reverter movimento
+    // Atualizar a solução atual com a melhor solução encontrada
+    pedidos = melhor_solucao;
+    melhorCusto = melhor_custo;
+
+    // Exibir a nova solução e o melhor custo, se houve melhoria
+    if (encontrouMelhoria) {
+        std::cout << "Melhor custo após movimento: " << melhor_custo << "\n";
+        std::cout << "Solução após movimento: ";
+        for (const auto& pedido : melhor_solucao) {
+            std::cout << pedido.indice + 1 << " "; // Exibindo o índice +1 para representar a posição original do pedido
         }
+        std::cout << std::endl;
     }
-    return false;
+
+    return encontrouMelhoria;
 }
 
-// Função para aplicar a terceira vizinhança: reverter uma subsequência
-bool vizinhancaReverter(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
-    for (int i = 0; i < pedidos.size(); ++i) {
-        for (int j = i + 2; j < pedidos.size(); ++j) {
-            std::reverse(pedidos.begin() + i, pedidos.begin() + j);
-            int novoCusto = calcularCusto(pedidos, matriz);
-            
-            if (novoCusto < melhorCusto) {
-                melhorCusto = novoCusto;
-                return true; // Encontrou melhoria
-            }
-            std::reverse(pedidos.begin() + i, pedidos.begin() + j); // Reverter a subsequência
-        }
-    }
-    return false;
-}
 
-// Implementação da função de produção com VND
+
+
+/*
+    Função producion
+
+    Custo Inicial: ordem natural dos pedidos
+*/
 void Fruta::producion() {
-    // Criar vetor de pedidos
     std::vector<Pedido> pedidos(n);
     for (int i = 0; i < n; ++i) {
         pedidos[i] = {i, t[i], p[i], m[i]};
     }
 
-    // Começar com uma solução inicial (gulosa): ordenar por prazo e multa por minuto
-    std::sort(pedidos.begin(), pedidos.end(), [](const Pedido& a, const Pedido& b) {
-        return (a.prazo < b.prazo) || (a.prazo == b.prazo && a.multaPorMinuto > b.multaPorMinuto);
-    });
-
-    // Calcular o custo inicial
+    // Calcular o custo inicial com base na solução gulosa
     int melhorCusto = calcularCusto(pedidos, matriz);
     std::cout << "Custo inicial: " << melhorCusto << std::endl;
 
-    // VND: explorar diferentes vizinhanças
+    // VND: explorar diferentes vizinhanças para melhorar a solução
     bool melhoria = true;
     while (melhoria) {
         melhoria = false;
+
+        // Tenta melhorar a solução com o movimento de troca de pedidos
         
-        // Vizinhança 1: troca
-        if (vizinhancaTroca(pedidos, matriz, melhorCusto)) {
-            melhoria = true;
-            continue;
-        }
 
-        // Vizinhança 2: mover
-        if (vizinhancaMover(pedidos, matriz, melhorCusto)) {
-            melhoria = true;
-            continue;
-        }
-
-        // Vizinhança 3: reverter subsequência
-        if (vizinhancaReverter(pedidos, matriz, melhorCusto)) {
+        // Verifica se houve alguma melhoria
+        // Se a função movimentoMulta encontrou uma solução melhor, melhoria será definido como true
+        if (movimentoMulta(pedidos, matriz, melhorCusto)) {
             melhoria = true;
             continue;
         }
     }
 
-    // Exibir a solução final e seu custo
     std::cout << "Custo final após VND: " << melhorCusto << std::endl;
     std::cout << "Sequência final de produção: ";
     for (const Pedido& pedido : pedidos) {
-        std::cout << pedido.indice + 1 << " ";
+        std::cout << pedido.indice + 1 << " "; // Exibindo o índice +1 para representar a posição original do pedido
     }
     std::cout << std::endl;
 }

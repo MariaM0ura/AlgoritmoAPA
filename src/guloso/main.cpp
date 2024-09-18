@@ -22,7 +22,6 @@ int main() {
 
     // Criação da instância da classe Fruta
     Fruta fruta(n, t, p, m, matriz);
-
     fruta.producion();
 
     auto end = std::chrono::high_resolution_clock::now();

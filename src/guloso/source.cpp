@@ -27,14 +27,24 @@ void Fruta::producion() {
     int tempoAtual = 0; 
     int valorTotalSolucao = 0;
     
-    // Criar vetor de pedidos
     std::vector<Pedido> pedidos(n);
+    /*
+        cada pedido é representado por um struct Pedido
+        Cada pedido vai ter um índice, tempo de produção, prazo de entrega e multa por minuto
+        ?? Talvez esteja usando muita memoria ??
+    */
     for (int i = 0; i < n; ++i) {
         pedidos[i] = {i, t[i], p[i], m[i]};
     }
 
+    /*
+        ordena os pedidos pelo prazo de entrega e multa por minuto
+    */
     std::sort(pedidos.begin(), pedidos.end(), compararPedidos);
 
+    /*
+        Para cada pedido na ordem de produção, calcular o tempo de produção, multa e tempo de conclusão
+    */
     for (int i = 0; i < n; ++i) {
         const Pedido& pedido = pedidos[i];
         std::cout << "----------------------------------------" << std::endl;
@@ -59,6 +69,9 @@ void Fruta::producion() {
         tempoAtual += producao;
         valorTotalSolucao += multa; 
 
+        /*
+            Se não for o último pedido, calcular o tempo de limpeza entre produções
+        */
         if (i < n - 1) {
             int proximoPedido = pedidos[i + 1].indice;
             std::cout << "Tempo de limpeza entre produções: " << matriz[pedido.indice][proximoPedido] << std::endl;
