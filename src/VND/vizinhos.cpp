@@ -27,16 +27,26 @@ int Fruta::calcularCusto(const std::vector<Pedido>& pedidos, const std::vector<s
         if (tempoConclusao > pedido.prazo) {
             multa = std::max(0, pedido.multaPorMinuto * (tempoConclusao - pedido.prazo));
         }
-
         tempoAtual += producao;
         valorTotalSolucao += multa;
 
+        // Adicionar tempo de transição para o próximo pedido
         if (i < n - 1) {
-            tempoAtual += matriz[pedido.indice][pedidos[i + 1].indice];
+            int tempoTransicao = matriz[pedido.indice][pedidos[i + 1].indice];
+            tempoAtual += tempoTransicao;
         }
     }
+
+    std::cout << "---------------------------------------------\n";
+    std::cout << "Calculando custo para a sequência: ";
+    for (const Pedido& pedido : pedidos) {
+        std::cout << pedido.indice + 1 << " ";
+    }
+    std::cout << std::endl;
+    std::cout << "Custo total da solução: " << valorTotalSolucao << std::endl;
     return valorTotalSolucao;
 }
+
 
 // Função swap com troca por menor multa
 bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
@@ -60,8 +70,13 @@ bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::
             // Calcular o custo da nova solução
             int custo_vizinho = calcularCusto(solucao_vizinha, matriz);
 
+            // Exibir informações sobre a troca e o custo
+            std::cout << "Trocando pedidos " << i + 1 << " e " << j + 1 << "\n";
+            std::cout << "Custo anterior: " << melhor_custo << " | Custo vizinho: " << custo_vizinho << "\n";
+
             // Se o custo da solução vizinha for menor, atualizar a melhor solução
             if (custo_vizinho < melhor_custo) {
+                std::cout << "Melhoria encontrada! Novo melhor custo: " << custo_vizinho << "\n";
                 melhor_custo = custo_vizinho;
                 melhor_solucao = solucao_vizinha;
                 encontrouMelhoria = true;
@@ -87,6 +102,44 @@ bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::
 }
 
 
+bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
+    bool melhoria = false;
+    int tamanho = pedidos.size();
+    std::vector<Pedido> melhorSolucao = pedidos;
+
+    for (int i = 0; i < tamanho - 1; ++i) {
+        for (int j = i + 1; j < tamanho; ++j) {
+            // Troca de pedidos
+            std::vector<Pedido> solucaoVizinha = pedidos;
+            std::swap(solucaoVizinha[i], solucaoVizinha[j]);
+
+            // Calcular o custo da nova solução
+            int custoVizinho = calcularCusto(solucaoVizinha, matriz);
+
+            // Se o custo da solução vizinha for menor, atualizar a melhor solução
+            if (custoVizinho < melhorCusto) {
+                melhorCusto = custoVizinho;
+                melhorSolucao = solucaoVizinha;
+                melhoria = true;
+            }
+        }
+    }
+
+    // Atualizar a solução atual com a melhor solução encontrada
+    pedidos = melhorSolucao;
+
+    // Exibir a nova solução e o melhor custo, se houve melhoria
+    if (melhoria) {
+        std::cout << "Melhor custo após movimento: " << melhorCusto << "\n";
+        std::cout << "Solução após movimento: ";
+        for (const auto& pedido : melhorSolucao) {
+            std::cout << pedido.indice + 1 << " "; // Exibindo o índice +1 para representar a posição original do pedido
+        }
+        std::cout << std::endl;
+    }
+
+    return melhoria;
+}
 
 
 /*
@@ -108,16 +161,16 @@ void Fruta::producion() {
     bool melhoria = true;
     while (melhoria) {
         melhoria = false;
-
-        // Tenta melhorar a solução com o movimento de troca de pedidos
-        
-
-        // Verifica se houve alguma melhoria
-        // Se a função movimentoMulta encontrou uma solução melhor, melhoria será definido como true
         if (movimentoMulta(pedidos, matriz, melhorCusto)) {
             melhoria = true;
             continue;
+        } 
+        if (movimentoSwap(pedidos, matriz, melhorCusto))
+        {
+            melhoria = true;
+            continue;
         }
+        
     }
 
     std::cout << "Custo final após VND: " << melhorCusto << std::endl;
