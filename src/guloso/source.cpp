@@ -51,20 +51,21 @@ void Fruta::producion() {
         std::cout << "Início da " << i + 1 << "ª produção (Pedido " << pedido.indice + 1 << "):" << std::endl;
         
         std::cout << "Tempo atual: " << tempoAtual << std::endl;
-        
+
         int producao = pedido.tempoProducao;
         int tempoConclusao = tempoAtual + producao;
+
+        std::cout << "Tempo da " << i + 1 << "ª produção: " << producao << std::endl;
+        std::cout << "Tempo de conclusão: " << tempoConclusao << " Prazo de conclusão: "<< pedido.prazo << std::endl;
+        
 
         int multa = 0;
         if (tempoConclusao > pedido.prazo) {
             multa = std::max(0, pedido.multaPorMinuto * (tempoConclusao - pedido.prazo));
-            std::cout << "Multa para o pedido " << pedido.indice + 1 << ": " << multa << std::endl;
+            std::cout << "Multa para o pedido " << pedido.indice + 1 << ": " << multa << " Atraso de: " << tempoConclusao - pedido.prazo << std::endl;
         } else {
             std::cout << "Pedido " << pedido.indice + 1 << " entregue dentro do prazo" << std::endl;
         }
-
-        std::cout << "Tempo da " << i + 1 << "ª produção: " << producao << std::endl;
-        std::cout << "Tempo de conclusão: " << tempoConclusao << std::endl;
 
         tempoAtual += producao;
         valorTotalSolucao += multa; 
@@ -76,7 +77,7 @@ void Fruta::producion() {
             int proximoPedido = pedidos[i + 1].indice;
             std::cout << "Tempo de limpeza entre produções: " << matriz[pedido.indice][proximoPedido] << std::endl;
             tempoAtual += matriz[pedido.indice][proximoPedido]; 
-            std::cout << "Tempo atual após limpeza: " << tempoAtual << std::endl;
+            std::cout << "Tempo atual : " << tempoAtual << std::endl;
         }
     }
 

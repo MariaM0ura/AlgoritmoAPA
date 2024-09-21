@@ -8,8 +8,6 @@
 Fruta::Fruta(int n, const std::vector<int>& t, const std::vector<int>& p, const std::vector<int>& m, const std::vector<std::vector<int>>& matriz)
     : n(n), t(t), p(p), m(m), matriz(matriz) {}
 
-
-
 /*
     calcula o custo total da solução
 */
