@@ -13,7 +13,7 @@ TARGET_VND = vnd_exec
 
 # Arquivos fonte
 SRC_GULOSO = $(SRCDIR_GULOSO)/main.cpp $(SRCDIR_GULOSO)/guloso.cpp
-SRC_VND = $(SRCDIR_VND)/main.cpp $(SRCDIR_VND)/VND.cpp
+SRC_VND = $(SRCDIR_VND)/main.cpp $(SRCDIR_VND)/vizinhos.cpp
 
 # Objetos
 OBJ_GULOSO = $(SRC_GULOSO:.cpp=.o)

@@ -1,0 +1,2 @@
+/home/maria/bruninho/build/CMakeFiles/edit_cache.dir
+/home/maria/bruninho/build/CMakeFiles/rebuild_cache.dir
