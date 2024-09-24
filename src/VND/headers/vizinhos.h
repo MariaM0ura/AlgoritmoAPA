@@ -2,6 +2,31 @@
 #define SOURCE_H
 
 #include <vector>
+#include <string.h>
+
+struct VND
+{
+    double melhorSolucao;
+    double tempo;
+    double gap;
+};
+
+struct Heuristica {
+    std::string nomeInstancia;
+    double tempo;
+    double gap;
+};
+
+struct Resultados
+/* vai guarda todos os resultados da instancia n60A.... */
+
+{
+    int instacia;
+    struct VND vnd;
+    struct Heuristica;
+
+};
+
 
 struct Pedido {
     int indice;
