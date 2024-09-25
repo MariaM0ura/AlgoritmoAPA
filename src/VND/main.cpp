@@ -1,5 +1,5 @@
 #include "headers/vizinhos.h"
-#include "leitor.cpp" // Incluir o leitor
+#include "leitor.cpp" 
 #include <vector>
 #include <chrono>
 #include <iostream>
@@ -10,14 +10,16 @@
 
 int main() {
     // Leitura da instância
-    std::string caminho_arquivo = "instancias/n60A.txt";
+    std::string caminho_arquivo = "instancias/n60F.txt";
     /*
         Mudar manualmente
     */
-    std::string nomeInstancia = "n60A"; 
-    double valorOtimo = 453;
+    std::string nomeInstancia = "n60E"; 
+    double valorOtimo = 93045;
+    if(valorOtimo == 0){
+        valorOtimo = 0.1;
+    }
 
-    // Chamar a função para ler a instância do arquivo
     int n;
     std::vector<int> t, p, m;
     std::vector<std::vector<int>> matriz;
@@ -38,7 +40,6 @@ int main() {
 
     Fruta fruta_construtiva(n, t, p, m, matriz);
 
-    // Algoritmo VND
     std::vector<VND> resultadosVND(n_execucoes);
     std::vector<VND> resultadoFinalVND(n_execucoes);
 
@@ -48,13 +49,11 @@ int main() {
     for (int i = 0; i < n_execucoes; ++i) {
         auto start_vnd = std::chrono::high_resolution_clock::now();
 
-        // Inicializar pedidos
         std::vector<Pedido> pedidos(n);
         for (int j = 0; j < n; ++j) {
             pedidos[j] = {j, t[j], p[j], m[j]};
         }
 
-        // Aplicar o algoritmo VND e capturar o custo final
         double custo_vnd = fruta_vnd.producion();
         solucoes_vnd[i] = custo_vnd;
 
@@ -76,13 +75,11 @@ int main() {
     }
 
 
-    // Armazenar resultados
     Resultados resultados;
     resultados.instancia = nomeInstancia;
     resultados.vnd = resultadosVND[0];  // Exemplo de como você pode armazenar o primeiro resultado
     //resultados.heuristica = resultadoHeuristica[0];  // Exemplo de como você pode armazenar o primeiro resultado
 
-    // Exibir resultados
     std::cout << "Resultados computacionais:\n";
     std::cout << "---------------------------------------------\n";
     std::cout << "Instância: " << resultados.instancia << "\n";
