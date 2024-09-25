@@ -106,7 +106,7 @@ bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::
 
     */
 
-    //std::cout << "Melhor custo após movimento: " << melhor_custo << "\n";
+    std::cout << "Melhor custo com Multa: " << melhor_custo << "\n";
     //std::cout << "Solução após movimento: ";
     
     return encontrouMelhoria;
@@ -118,6 +118,7 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
     int tamanho = pedidos.size();
     std::vector<Pedido> melhorSolucao = pedidos;
 
+    // Variáveis para armazenar a solução vizinha e o custo vizinho
     for (int i = 0; i < tamanho - 1; ++i) {
         for (int j = i + 1; j < tamanho; ++j) {
             // Troca de pedidos
@@ -126,6 +127,10 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
 
             // Calcular o custo da nova solução
             int custoVizinho = calcularCusto(solucaoVizinha, matriz);
+
+            // Exibir informações sobre a troca e o custo
+            //std::cout << "Trocando pedidos " << pedidos[i].indice + 1 << " e " << pedidos[j].indice + 1 << "\n";
+            //std::cout << "Custo anterior: " << melhorCusto << " | Custo vizinho: " << custoVizinho << "\n";
 
             // Se o custo da solução vizinha for menor, atualizar a melhor solução
             if (custoVizinho < melhorCusto) {
@@ -136,24 +141,18 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
         }
     }
 
-    // Atualizar a solução atual com a melhor solução encontrada
-    pedidos = melhorSolucao;
-
-    // Exibir a nova solução e o melhor custo, se houve melhoria
-
-    /*
-    
+    // Se houve melhoria, atualizar a solução atual
     if (melhoria) {
-        std::cout << "Melhor custo após movimento: " << melhorCusto << "\n";
-        std::cout << "Solução após movimento: ";
+        pedidos = melhorSolucao;
+        std::cout << "Solução após movimento com Swap: ";
+        /*
         for (const auto& pedido : melhorSolucao) {
             std::cout << pedido.indice + 1 << " "; // Exibindo o índice +1 para representar a posição original do pedido
         }
         std::cout << std::endl;
+        */
+        
     }
-    
-    
-    */
 
     return melhoria;
 }
@@ -188,18 +187,20 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
 
     // Exibir a nova solução e o melhor custo, se houve melhoria
 
-    /*
+
     
     if (melhora) {
-        std::cout << "Melhor custo após movimento: " << melhorCusto << "\n";
+        std::cout << "Melhor custo após movimento com 20pt: " << melhorCusto << "\n";
+        /*
         std::cout << "Solução após movimento: ";
         for (const auto& pedido : melhorSolucao) {
             std::cout << pedido.indice + 1 << " "; // Exibindo o índice +1 para representar a posição original do pedido
         }
         std::cout << std::endl;
+        */
     }    
     
-    */
+    
 
 
     return melhora;
@@ -241,18 +242,20 @@ bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector
     pedidos = melhorSolucao;
 
     // Exibir a nova solução e o melhor custo, se houve melhoria
-    /*
+
     
     if (melhoria) {
         std::cout << "Melhor custo após reinsertion: " << melhorCusto << "\n";
+    /*
         std::cout << "Solução após reinsertion: ";
         for (const auto& pedido : melhorSolucao) {
             std::cout << pedido.indice + 1 << " ";  // Exibindo o índice +1 para representar a posição original do pedido
         }
         std::cout << std::endl;
+     */
     }
     
-    */
+
 
 
     return melhoria;
@@ -279,22 +282,22 @@ double Fruta::producion() {
     while (melhoria) {
         melhoria = false;
         if (movimento2Opt(pedidos, matriz, melhorCusto)) {
-            //std::cout << "Melhoria encontrada no 2Opt: " << melhorCusto << std::endl;
+            std::cout << "Melhoria encontrada no 2Opt: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
         if (movimentoReinsertion(pedidos, matriz, melhorCusto)) {
-            //std::cout << "Melhoria encontrada no Reinsertion: " << melhorCusto << std::endl;
+            std::cout << "Melhoria encontrada no Reinsertion: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
         if (movimentoMulta(pedidos, matriz, melhorCusto)) {
-            //std::cout << "Melhoria encontrada no Multa: " << melhorCusto << std::endl;
+            std::cout << "Melhoria encontrada no Multa: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
         if (movimentoSwap(pedidos, matriz, melhorCusto)) {
-            //std::cout << "Melhoria encontrada no Swap: " << melhorCusto << std::endl;
+            std::cout << "Melhoria encontrada no Swap: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
