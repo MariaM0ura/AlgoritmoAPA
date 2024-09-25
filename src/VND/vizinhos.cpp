@@ -80,7 +80,7 @@ bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::
 
             // Se o custo da solução vizinha for menor, atualizar a melhor solução
             if (custo_vizinho < melhor_custo) {
-                std::cout << "Melhoria encontrada! Novo melhor custo: " << custo_vizinho << "\n";
+                //std::cout << "Melhoria encontrada! Novo melhor custo: " << custo_vizinho << "\n";
                 melhor_custo = custo_vizinho;
                 melhor_solucao = solucao_vizinha;
                 encontrouMelhoria = true;
@@ -105,6 +105,9 @@ bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::
     }
 
     */
+
+    //std::cout << "Melhor custo após movimento: " << melhor_custo << "\n";
+    //std::cout << "Solução após movimento: ";
     
     return encontrouMelhoria;
 }
@@ -137,6 +140,9 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
     pedidos = melhorSolucao;
 
     // Exibir a nova solução e o melhor custo, se houve melhoria
+
+    /*
+    
     if (melhoria) {
         std::cout << "Melhor custo após movimento: " << melhorCusto << "\n";
         std::cout << "Solução após movimento: ";
@@ -145,6 +151,9 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
         }
         std::cout << std::endl;
     }
+    
+    
+    */
 
     return melhoria;
 }
@@ -178,6 +187,9 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
     pedidos = melhorSolucao;
 
     // Exibir a nova solução e o melhor custo, se houve melhoria
+
+    /*
+    
     if (melhora) {
         std::cout << "Melhor custo após movimento: " << melhorCusto << "\n";
         std::cout << "Solução após movimento: ";
@@ -185,7 +197,10 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
             std::cout << pedido.indice + 1 << " "; // Exibindo o índice +1 para representar a posição original do pedido
         }
         std::cout << std::endl;
-    }
+    }    
+    
+    */
+
 
     return melhora;
 }
@@ -226,6 +241,8 @@ bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector
     pedidos = melhorSolucao;
 
     // Exibir a nova solução e o melhor custo, se houve melhoria
+    /*
+    
     if (melhoria) {
         std::cout << "Melhor custo após reinsertion: " << melhorCusto << "\n";
         std::cout << "Solução após reinsertion: ";
@@ -234,6 +251,9 @@ bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector
         }
         std::cout << std::endl;
     }
+    
+    */
+
 
     return melhoria;
 }
@@ -244,7 +264,7 @@ bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector
 
     Custo Inicial: ordem natural dos pedidos
 */
-void Fruta::producion() {
+double Fruta::producion() {
     std::vector<Pedido> pedidos(n);
     for (int i = 0; i < n; ++i) {
         pedidos[i] = {i, t[i], p[i], m[i]};
@@ -258,32 +278,41 @@ void Fruta::producion() {
     bool melhoria = true;
     while (melhoria) {
         melhoria = false;
+        if (movimento2Opt(pedidos, matriz, melhorCusto)) {
+            //std::cout << "Melhoria encontrada no 2Opt: " << melhorCusto << std::endl;
+            melhoria = true;
+            continue;
+        }
+        if (movimentoReinsertion(pedidos, matriz, melhorCusto)) {
+            //std::cout << "Melhoria encontrada no Reinsertion: " << melhorCusto << std::endl;
+            melhoria = true;
+            continue;
+        }
         if (movimentoMulta(pedidos, matriz, melhorCusto)) {
-            melhoria = true;
-            continue;
-        } 
-        if (movimentoSwap(pedidos, matriz, melhorCusto))
-        {
+            //std::cout << "Melhoria encontrada no Multa: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
-        if (movimento2Opt(pedidos, matriz, melhorCusto))
-        {
+        if (movimentoSwap(pedidos, matriz, melhorCusto)) {
+            //std::cout << "Melhoria encontrada no Swap: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
-        if (movimentoReinsertion(pedidos, matriz, melhorCusto))
-        {
-            melhoria = true;
-            continue;
-        }        
-        
     }
 
     std::cout << "Custo final após VND: " << melhorCusto << std::endl;
+
+    /*
+
     std::cout << "Sequência final de produção: ";
     for (const Pedido& pedido : pedidos) {
         std::cout << pedido.indice + 1 << " "; // Exibindo o índice +1 para representar a posição original do pedido
     }
-    std::cout << std::endl;
+
+     */
+
+    return melhorCusto;
+
+
+
 }
