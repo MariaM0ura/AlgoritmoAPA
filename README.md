@@ -1,4 +1,5 @@
 <h1>Problema de Otimização:<h1>
+<p>
 Seja n o número de pedidos que devem ser processados em um determinado dia na linha de
 produção da fábrica. Cada pedido i ∈ {1, . . . , n} requer um tempo ti (em minutos) para ser
 processado e deve ser concluı́do até o tempo pi . Entre o processamento de dois pedidos, pode
@@ -9,9 +10,11 @@ seja finalizado após o tempo pi , a empresa paga uma multa por atraso Mi = wi �
 da multa por minuto de atraso associada ao pedido i. O objetivo do problema é obter a
 sequência de processamento dos pedidos na linha de produção de forma a garantir que todos
 os pedidos sejam processados e que a soma das multas por atraso seja mı́nima.
+  
+</p>
 
-<h1>Instancia<h1>
-
+<h5>Instancia</h5>
+<p>
 numeros_de_pedidos
 
 array_t (tempo dos pedidos)
@@ -35,7 +38,11 @@ exemplo:
    11 13 12 0 10
    5 10 15 20 0 ]
 
-<h1> Etapas e prazos <h1>
+
+  
+</p>
+<h5> Etapas e prazos <h5>
+<p>
 Este projeto contém os seguintes entregáveis:
 • Implementação de ao menos um algoritmo guloso para a geração de uma solução viável.
 • Implementação de pelo menos 3 movimentos de vizinhança.
@@ -56,3 +63,5 @@ tabela.
 <h1>Organizando pela Matriz de limpeza <h1>
 
 A ordem dos pedidos vai depender da limpeza 
+  
+</p>
