@@ -1,6 +1,5 @@
 <h1>Problema de Otimização:<h1>
-<p>
-Seja n o número de pedidos que devem ser processados em um determinado dia na linha de
+<p>Seja n o número de pedidos que devem ser processados em um determinado dia na linha de
 produção da fábrica. Cada pedido i ∈ {1, . . . , n} requer um tempo ti (em minutos) para ser
 processado e deve ser concluı́do até o tempo pi . Entre o processamento de dois pedidos, pode
 ser necessário a limpeza e/ou adequação do tipo de embalagem. Sendo assim, consideramos
@@ -9,13 +8,10 @@ processar o pedido j logo após o pedido i, onde i, j ∈ {1, . . . , n} e i ̸=
 seja finalizado após o tempo pi , a empresa paga uma multa por atraso Mi = wi ∗ (Ci − pi )(Multa = max(0, Valor Multa por Minuto *(Tempo de Conclusão − Prazo))), onde Ci especifica o tempo de término do processamento do pedido i e wi determina o valor
 da multa por minuto de atraso associada ao pedido i. O objetivo do problema é obter a
 sequência de processamento dos pedidos na linha de produção de forma a garantir que todos
-os pedidos sejam processados e que a soma das multas por atraso seja mı́nima.
-  
-</p>
+os pedidos sejam processados e que a soma das multas por atraso seja mı́nima.</p>
 
 <h5>Instancia</h5>
-<p>
-numeros_de_pedidos
+<p>numeros_de_pedidos
 
 array_t (tempo dos pedidos)
 array_p (tempo de prazo dos pedidos a medida que corre o tempo)
@@ -36,11 +32,8 @@ exemplo:
    10 0 10 13 9
    17 9 0 10 14 
    11 13 12 0 10
-   5 10 15 20 0 ]
-
-
-  
-</p>
+   5 10 15 20 0 ]</p>
+   
 <h5> Etapas e prazos <h5>
 <p>
 Este projeto contém os seguintes entregáveis:
