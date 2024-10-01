@@ -2,25 +2,29 @@
 #include <vector>
 #include <chrono>
 #include <iostream>
+#include "leitor.cpp"
 
 int main() {
-    // Início da contagem do tempo de execução
     auto start = std::chrono::high_resolution_clock::now();
 
-    int n = 5; 
-    std::vector<int> t = {15, 25, 20, 30, 20};   // Tempos de produção
-    std::vector<int> p = {25, 45, 75, 120, 135}; // Prazos
-    std::vector<int> m = {10, 12, 30, 15, 10};   // Multas por minuto
+    std::string caminho_arquivo = "instancias/instancia.txt";
 
-    std::vector<std::vector<int>> matriz = {
-        {0, 10, 15, 8, 21},
-        {10, 0, 10, 13, 9},
-        {17, 9, 0, 10, 14},
-        {11, 13, 12, 0, 10},
-        {5, 10, 15, 20, 0}
-    };
+    double valorOtimo = 360;
+    if(valorOtimo == 0){
+        valorOtimo = 0.1;
+    }
 
-    // Criação da instância da classe Fruta
+    int n;
+    std::vector<int> t, p, m;
+    std::vector<std::vector<int>> matriz;
+
+    try {
+        std::tie(n, t, p, m, matriz) = ler_instancia(caminho_arquivo);
+    } catch (const std::exception& e) {
+        std::cerr << "Erro: " << e.what() << std::endl;
+        return 1;
+    }
+
     Fruta fruta(n, t, p, m, matriz);
     fruta.producion();
 

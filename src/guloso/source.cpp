@@ -1,7 +1,7 @@
 #include "headers/source.h"
 #include <iostream>
 #include <vector>
-#include <algorithm> // Para a função std::max e std::sort
+#include <algorithm> 
 
 Fruta::Fruta(int n, const std::vector<int>& t, const std::vector<int>& p, const std::vector<int>& m, const std::vector<std::vector<int>>& matriz)
     : n(n), t(t), p(p), m(m), matriz(matriz) {}
@@ -13,12 +13,9 @@ struct Pedido {
     int multaPorMinuto;
 };
 
-/*
-    ordena os pedidos pelo prazo de entrega e multa por minuto
-*/
 bool compararPedidos(const Pedido& a, const Pedido& b) {
     if (a.prazo == b.prazo) {
-        return a.multaPorMinuto > b.multaPorMinuto; // Priorizar maior multa por minuto em caso de empate
+        return a.multaPorMinuto > b.multaPorMinuto; 
     }
     return a.prazo < b.prazo; 
 }
@@ -28,26 +25,25 @@ void Fruta::producion() {
     int valorTotalSolucao = 0;
     
     std::vector<Pedido> pedidos(n);
-    /*
-        cada pedido é representado por um struct Pedido
-        Cada pedido vai ter um índice, tempo de produção, prazo de entrega e multa por minuto
-        ?? Talvez esteja usando muita memoria ??
-    */
+
     for (int i = 0; i < n; ++i) {
         pedidos[i] = {i, t[i], p[i], m[i]};
     }
 
-    /*
-        ordena os pedidos pelo prazo de entrega e multa por minuto
-    */
     std::sort(pedidos.begin(), pedidos.end(), compararPedidos);
 
-    /*
-        Para cada pedido na ordem de produção, calcular o tempo de produção, multa e tempo de conclusão
-    */
+
     for (int i = 0; i < n; ++i) {
         const Pedido& pedido = pedidos[i];
         std::cout << "----------------------------------------" << std::endl;
+        std::cout << "Pedido " << pedido.indice + 1 << std::endl;
+
+
+        if( i == 0 ){
+            std::cout << "Tempo de preparacão do Primeiro perdido : " << matriz[0][pedido.indice] << std::endl;
+            tempoAtual += matriz[0][pedido.indice];
+        }
+
         std::cout << "Início da " << i + 1 << "ª produção (Pedido " << pedido.indice + 1 << "):" << std::endl;
         
         std::cout << "Tempo atual: " << tempoAtual << std::endl;
@@ -70,17 +66,17 @@ void Fruta::producion() {
         tempoAtual += producao;
         valorTotalSolucao += multa; 
 
-        /*
-            Se não for o último pedido, calcular o tempo de limpeza entre produções
-        */
-        if (i < n - 1) {
+        if (pedido.indice + 1 < matriz.size()) {
             int proximoPedido = pedidos[i + 1].indice;
-            std::cout << "Tempo de limpeza entre produções: " << matriz[pedido.indice][proximoPedido] << std::endl;
-            tempoAtual += matriz[pedido.indice][proximoPedido]; 
+            std::cout << "Tempo de limpeza entre produções: " << matriz[pedido.indice + 1][proximoPedido] << std::endl;
+            tempoAtual +=matriz[pedido.indice + 1][proximoPedido]; 
             std::cout << "Tempo atual : " << tempoAtual << std::endl;
         }
     }
 
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Valor total da solução: " << valorTotalSolucao << std::endl;
+    
+    
 }
+

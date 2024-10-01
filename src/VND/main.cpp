@@ -9,16 +9,10 @@
 
 
 int main() {
-    // Leitura da instância
-    std::string caminho_arquivo = "instancias/n60F.txt";
-    /*
-        Mudar manualmente
-    */
-    std::string nomeInstancia = "n60E"; 
-    double valorOtimo = 93045;
-    if(valorOtimo == 0){
-        valorOtimo = 0.1;
-    }
+    std::string caminho_arquivo = "instancias/n60K.txt";
+    std::string nomeInstancia = "n60B"; 
+    double valorOtimo = 458752;
+
 
     int n;
     std::vector<int> t, p, m;
@@ -33,8 +27,6 @@ int main() {
 
     int n_execucoes = 1;
 
-    std::vector<double> solucoes_construtiva(n_execucoes);
-    std::vector<double> tempos_construtiva(n_execucoes);
     std::vector<double> solucoes_vnd(n_execucoes);
     std::vector<double> tempos_vnd(n_execucoes);
 
@@ -65,7 +57,16 @@ int main() {
 
         double melhor_solucao_vnd = *std::min_element(solucoes_vnd.begin(), solucoes_vnd.end());
         double media_tempo_vnd = std::accumulate(tempos_vnd.begin(), tempos_vnd.end(), 0.0) / n_execucoes;
-        double gap = (melhor_solucao_vnd - valorOtimo) / valorOtimo * 100;
+        double gap;
+        if (valorOtimo == 0){
+            if (media_solucao_vnd == 0){
+                gap = 0;
+            }
+        }else{
+            gap   = (melhor_solucao_vnd - valorOtimo) / valorOtimo * 100;
+        }
+        
+       
 
         resultadosVND[i] = {melhor_solucao_vnd, media_tempo_vnd, gap};
     }
@@ -77,7 +78,7 @@ int main() {
 
     Resultados resultados;
     resultados.instancia = nomeInstancia;
-    resultados.vnd = resultadosVND[0];  // Exemplo de como você pode armazenar o primeiro resultado
+    resultados.vnd = resultadosVND[0];  
     //resultados.heuristica = resultadoHeuristica[0];  // Exemplo de como você pode armazenar o primeiro resultado
 
     std::cout << "Resultados computacionais:\n";
