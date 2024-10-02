@@ -93,12 +93,10 @@ int main(int argc, char* argv[]) {
     std::cout << "Valor Otimo: "<<  valorOtimo << "\n";
      std::cout << "---------------------------------------------\n";
 
-    std::cout << "\nVND:\n";
     */
-    
-    std::cout << "  Melhor solução: " << resultados.vnd.melhorSolucao << "\n";
-    std::cout << "  Tempo: " << resultados.vnd.tempo << "\n";
-    std::cout << "  Gap: " << resultados.vnd.gap << "%\n";
+
+    std::cout << "\nVND:\n";
+    std::cout << "  Melhor solução: " << resultados.vnd.melhorSolucao << "  Tempo: " << resultados.vnd.tempo << "  Gap: " << resultados.vnd.gap << "%\n";
 
     return 0;
 }

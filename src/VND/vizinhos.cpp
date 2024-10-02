@@ -41,51 +41,33 @@ int Fruta::calcularCusto(const std::vector<Pedido>& pedidos, const std::vector<s
 bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
     bool melhoria = false;
     int tamanho = pedidos.size();
-    //std::cout << "Tamanho: " << tamanho << std::endl;
-
     std::vector<bool> fixado(tamanho, false);
 
-    for (int i = 0; i < tamanho; ++i) {
+    for (int i = 0; i < tamanho - 1; ++i) {
+        if (fixado[i]) continue;  // Se já estiver fixado, pula
+
         for (int j = i + 1; j < tamanho; ++j) {
-            std::swap(pedidos[i], pedidos[j]);
+            if (fixado[j]) continue;  // Evita recalcular para swaps já otimizados
+
+            std::swap(pedidos[i], pedidos[j]);  // Faz o swap
 
             int custoVizinho = calcularCusto(pedidos, matriz);
 
             if (custoVizinho < melhorCusto) {
                 melhorCusto = custoVizinho;
-                //std::cout << "Melhorou o custo: " << melhorCusto << std::endl;
                 melhoria = true;
 
-                for(i = i + 1; i < tamanho; ++i){
-                    if(fixado[i]) continue;
-
-                    for(j = j + 1; j < tamanho; ++j){
-                        if(fixado[j]) continue;
-
-                        std::swap(pedidos[i], pedidos[j]);
-                        int custoVizinho = calcularCusto(pedidos, matriz);
-
-                        if(custoVizinho < melhorCusto){
-                            melhorCusto = custoVizinho;
-                            //std::cout << "Melhorou o custo: " << melhorCusto << std::endl;
-                            melhoria = true;
-
-                            fixado[i] = true;
-                            fixado[j] = true;
-                            
-                        } else {
-                            std::swap(pedidos[i], pedidos[j]);
-                        }
-                    }
-                }
+                fixado[i] = true;  // Marca os índices como fixados
+                fixado[j] = true;
             } else {
-                std::swap(pedidos[i], pedidos[j]); // desfaz o swap
+                std::swap(pedidos[i], pedidos[j]);  // Desfaz o swap se não houve melhoria
             }
         }
     }
 
     return melhoria;
 }
+
 
 bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
     bool melhora = false;
