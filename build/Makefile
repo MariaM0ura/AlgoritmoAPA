@@ -67,7 +67,7 @@ CMAKE_BINARY_DIR = /home/maria/bruninho/build
 
 # Special rule for the target edit_cache
 edit_cache:
-	@echo "No interactive CMake dialog available..."
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
 	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
@@ -77,7 +77,7 @@ edit_cache/fast: edit_cache
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
-	@echo "Running CMake to regenerate build system..."
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
 	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
@@ -116,6 +116,80 @@ depend:
 	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
+#=============================================================================
+# Target rules for targets named main
+
+# Build rule for target.
+main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main
+.PHONY : main
+
+# fast build rule for target.
+main/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
+.PHONY : main/fast
+
+#=============================================================================
+# Target rules for targets named run_all
+
+# Build rule for target.
+run_all: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run_all
+.PHONY : run_all
+
+# fast build rule for target.
+run_all/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_all.dir/build.make CMakeFiles/run_all.dir/build
+.PHONY : run_all/fast
+
+src/VND/main.o: src/VND/main.cpp.o
+.PHONY : src/VND/main.o
+
+# target to build an object file
+src/VND/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/VND/main.cpp.o
+.PHONY : src/VND/main.cpp.o
+
+src/VND/main.i: src/VND/main.cpp.i
+.PHONY : src/VND/main.i
+
+# target to preprocess a source file
+src/VND/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/VND/main.cpp.i
+.PHONY : src/VND/main.cpp.i
+
+src/VND/main.s: src/VND/main.cpp.s
+.PHONY : src/VND/main.s
+
+# target to generate assembly for a file
+src/VND/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/VND/main.cpp.s
+.PHONY : src/VND/main.cpp.s
+
+src/VND/vizinhos.o: src/VND/vizinhos.cpp.o
+.PHONY : src/VND/vizinhos.o
+
+# target to build an object file
+src/VND/vizinhos.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/VND/vizinhos.cpp.o
+.PHONY : src/VND/vizinhos.cpp.o
+
+src/VND/vizinhos.i: src/VND/vizinhos.cpp.i
+.PHONY : src/VND/vizinhos.i
+
+# target to preprocess a source file
+src/VND/vizinhos.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/VND/vizinhos.cpp.i
+.PHONY : src/VND/vizinhos.cpp.i
+
+src/VND/vizinhos.s: src/VND/vizinhos.cpp.s
+.PHONY : src/VND/vizinhos.s
+
+# target to generate assembly for a file
+src/VND/vizinhos.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/VND/vizinhos.cpp.s
+.PHONY : src/VND/vizinhos.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -124,6 +198,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... run_all"
+	@echo "... main"
+	@echo "... src/VND/main.o"
+	@echo "... src/VND/main.i"
+	@echo "... src/VND/main.s"
+	@echo "... src/VND/vizinhos.o"
+	@echo "... src/VND/vizinhos.i"
+	@echo "... src/VND/vizinhos.s"
 .PHONY : help
 
 

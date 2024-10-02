@@ -8,11 +8,15 @@
 #include <string.h>
 
 
-int main() {
-    std::string caminho_arquivo = "instancias/n60K.txt";
-    std::string nomeInstancia = "n60B"; 
-    double valorOtimo = 458752;
+int main(int argc, char* argv[]) {
+    if (argc < 4) {
+        std::cerr << "Uso: " << argv[0] << " <caminho_arquivo> <nome_instancia> <valor_otimo>\n";
+        return 1;
+    }
 
+    std::string caminho_arquivo = argv[1];
+    std::string nomeInstancia = argv[2]; 
+    double valorOtimo = std::stod(argv[3]);  // Converte o argumento para double
 
     int n;
     std::vector<int> t, p, m;
@@ -66,35 +70,32 @@ int main() {
             gap   = (melhor_solucao_vnd - valorOtimo) / valorOtimo * 100;
         }
         
-       
-
         resultadosVND[i] = {melhor_solucao_vnd, media_tempo_vnd, gap};
     }
 
+    /*
     for(int i = 0; i < n_execucoes; i++){
         std::cout << "VND: " << resultadosVND[i].melhorSolucao << " " << resultadosVND[i].tempo << " " << resultadosVND[i].gap << std::endl;
     }
+    
+    */
+    
 
 
     Resultados resultados;
     resultados.instancia = nomeInstancia;
     resultados.vnd = resultadosVND[0];  
-    //resultados.heuristica = resultadoHeuristica[0];  // Exemplo de como você pode armazenar o primeiro resultado
 
+    /*
     std::cout << "Resultados computacionais:\n";
     std::cout << "---------------------------------------------\n";
     std::cout << "Instância: " << resultados.instancia << "\n";
     std::cout << "Valor Otimo: "<<  valorOtimo << "\n";
      std::cout << "---------------------------------------------\n";
 
-/*
-    std::cout << "ILS ou GAp:\n";
-    std::cout << "  Melhor solução: " << resultados.heuristica.melhorSolucao << "\n";
-    std::cout << "  Tempo: " << resultados.heuristica.tempo << "\n";
-    std::cout << "  Gap: " << resultados.heuristica.gap << "%\n";
-*/
-
     std::cout << "\nVND:\n";
+    */
+    
     std::cout << "  Melhor solução: " << resultados.vnd.melhorSolucao << "\n";
     std::cout << "  Tempo: " << resultados.vnd.tempo << "\n";
     std::cout << "  Gap: " << resultados.vnd.gap << "%\n";

@@ -37,32 +37,11 @@ int Fruta::calcularCusto(const std::vector<Pedido>& pedidos, const std::vector<s
     return valorTotalSolucao;
 }
 
-bool Fruta::movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
-    int tamanho = pedidos.size();
-    bool encontrouMelhoria = false;
-
-    for (int i = 0; i < tamanho; ++i) {
-        for (int j = i + 1; j < tamanho - 1; ++j) {
-            std::swap(pedidos[i], pedidos[j]);
-
-            int custoVizinho = calcularCusto(pedidos, matriz);
-
-            if (custoVizinho < melhorCusto) {
-                melhorCusto = custoVizinho;
-                encontrouMelhoria = true;
-            } else {
-                std::swap(pedidos[i], pedidos[j]); // desfaz o swap
-            }
-        }
-    }
-
-    return encontrouMelhoria;
-}
 
 bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
     bool melhoria = false;
     int tamanho = pedidos.size();
-    std::cout << "Tamanho: " << tamanho << std::endl;
+    //std::cout << "Tamanho: " << tamanho << std::endl;
 
     std::vector<bool> fixado(tamanho, false);
 
@@ -74,7 +53,7 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
 
             if (custoVizinho < melhorCusto) {
                 melhorCusto = custoVizinho;
-                std::cout << "Melhorou o custo: " << melhorCusto << std::endl;
+                //std::cout << "Melhorou o custo: " << melhorCusto << std::endl;
                 melhoria = true;
 
                 for(i = i + 1; i < tamanho; ++i){
@@ -88,7 +67,7 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
 
                         if(custoVizinho < melhorCusto){
                             melhorCusto = custoVizinho;
-                            std::cout << "Melhorou o custo: " << melhorCusto << std::endl;
+                            //std::cout << "Melhorou o custo: " << melhorCusto << std::endl;
                             melhoria = true;
 
                             fixado[i] = true;
@@ -164,7 +143,7 @@ double Fruta::producion() {
     }
 
     int melhorCusto = calcularCusto(pedidos, matriz);
-    std::cout << "Custo inicial: " << melhorCusto << std::endl;
+    //std::cout << "Custo inicial: " << melhorCusto << std::endl;
     bool melhoria = true;
 
     while (melhoria) {
@@ -172,38 +151,34 @@ double Fruta::producion() {
 
         
         if (movimento2Opt(pedidos, matriz, melhorCusto)) {
-            std::cout << "Melhoria no 2Opt: " << melhorCusto << std::endl;
+            //std::cout << "Melhoria no 2Opt: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
 
         if (movimentoReinsertion(pedidos, matriz, melhorCusto)) {
-            std::cout << "Melhoria no Reinsertion: " << melhorCusto << std::endl;
+            //std::cout << "Melhoria no Reinsertion: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
-        }
-
-        if (movimentoMulta(pedidos, matriz, melhorCusto)) {
-            std::cout << "Melhoria no Multa: " << melhorCusto << std::endl;
-            melhoria = true;
-            continue;
-        }
-
-        
+        }    
 
         if (movimentoSwap(pedidos, matriz, melhorCusto)) {
-            std::cout << "Melhoria no Swap: " << melhorCusto << std::endl;
+            //std::cout << "Melhoria no Swap: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
     }
 
+    /*
     std::cout << "Custo final após VND: " << melhorCusto << std::endl;
 
     std::cout << "Sequência final de produção: ";
     for (const Pedido& pedido : pedidos) {
         std::cout << pedido.indice + 1 << " ";
     }
+    
+    */
+    
 
     return melhorCusto;
 }

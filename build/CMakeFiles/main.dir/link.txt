@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/main.dir/src/VND/main.cpp.o CMakeFiles/main.dir/src/VND/vizinhos.cpp.o -o main 
