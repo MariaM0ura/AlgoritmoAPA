@@ -21,11 +21,12 @@ fi
 cd ..
 
 # Executa o programa para cada instância
+echo "Executando o programa para cada instância..."
+
 for i in "${!INSTANCIAS[@]}"; do
     INSTANCIA="${INSTANCIAS[$i]}"
     VALOR_OTIMO="${VALORES_OTIMOS[$i]}"
     echo "Executando $INSTANCIA com valor ótimo $VALOR_OTIMO"
-    
     # Executa o programa com a instância e valor ótimo correspondentes
     ./build/main "$INSTANCIAS_DIR/$INSTANCIA.txt" "$INSTANCIA" "$VALOR_OTIMO"
     

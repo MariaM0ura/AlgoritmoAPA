@@ -95,8 +95,8 @@ int main(int argc, char* argv[]) {
 
     */
 
-    std::cout << "\nVND:\n";
-    std::cout << "  Melhor solução: " << resultados.vnd.melhorSolucao << "  Tempo: " << resultados.vnd.tempo << "  Gap: " << resultados.vnd.gap << "%\n";
+    std::cout << "VND:\n";
+    std::cout << "  Melhor solução: " << resultados.vnd.melhorSolucao << "  Tempo: " << resultados.vnd.tempo << "  Gap: " << resultados.vnd.gap << "%\n\n";
 
     return 0;
 }

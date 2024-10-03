@@ -1,6 +1,6 @@
 # Variáveis
 CXX = g++
-CXXFLAGS = -Wall -std=c++17
+CXXFLAGS = -Wall -std=c++17 
 
 # Diretórios e arquivos
 SRCDIR_GULOSO = src/guloso
@@ -37,3 +37,10 @@ $(TARGET_VND): $(OBJ_VND)
 # Limpeza de arquivos gerados
 clean:
 	rm -f $(OBJ_GULOSO) $(OBJ_VND) $(TARGET_GULOSO) $(TARGET_VND)
+
+# Regra para executar o script ./scripts/run_all.sh
+run_all:
+	./scripts/run_all.sh
+
+run_inst: $(TARGET_VND)
+	@bash ./scripts/run_inst.sh $(instancia)
