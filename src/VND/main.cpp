@@ -29,6 +29,13 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    /*
+        chamar o guloso aqui para entrar no com o VND
+
+    */
+
+
+
     int n_execucoes = 1;
 
     std::vector<double> solucoes_vnd(n_execucoes);
