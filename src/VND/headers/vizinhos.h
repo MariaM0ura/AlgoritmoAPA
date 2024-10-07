@@ -34,10 +34,11 @@ private:
 
 public:
     Fruta(int n, const std::vector<int>& t, const std::vector<int>& p, const std::vector<int>& m, const std::vector<std::vector<int>>& matriz);
-
+    std::vector<Pedido> pedidos;
+    
     double producion();
+    void guloso();
     int calcularCusto(const std::vector<Pedido>& ordemPedidos, const std::vector<std::vector<int>>& matriz) const;
-    bool movimentoMulta(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
     bool movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
     int calcularCustoSwapIncremental(const Pedido& pedido1, const Pedido& pedido2, const std::vector<std::vector<int>>& matriz);
     bool movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);

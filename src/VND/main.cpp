@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 
     std::string caminho_arquivo = argv[1];
     std::string nomeInstancia = argv[2]; 
-    double valorOtimo = std::stod(argv[3]);  // Converte o argumento para double
+    double valorOtimo = std::stod(argv[3]);  
 
     int n;
     std::vector<int> t, p, m;
@@ -29,81 +29,45 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    /*
-        chamar o guloso aqui para entrar no com o VND
 
-    */
-
-
-
-    int n_execucoes = 1;
-
-    std::vector<double> solucoes_vnd(n_execucoes);
-    std::vector<double> tempos_vnd(n_execucoes);
-
-    Fruta fruta_construtiva(n, t, p, m, matriz);
-
-    std::vector<VND> resultadosVND(n_execucoes);
-    std::vector<VND> resultadoFinalVND(n_execucoes);
-
+    std::vector<double> solucoes_vnd(1);
+    std::vector<double> tempos_vnd(1);
 
     Fruta fruta_vnd(n, t, p, m, matriz);
-    
-    for (int i = 0; i < n_execucoes; ++i) {
-        auto start_vnd = std::chrono::high_resolution_clock::now();
 
-        std::vector<Pedido> pedidos(n);
-        for (int j = 0; j < n; ++j) {
+    std::vector<VND> resultadosVND(1);
+    std::vector<VND> resultadoFinalVND(1);
+
+    auto start_vnd = std::chrono::high_resolution_clock::now();
+
+    std::vector<Pedido> pedidos(n);
+    for (int j = 0; j < n; ++j) {
             pedidos[j] = {j, t[j], p[j], m[j]};
-        }
-
-        double custo_vnd = fruta_vnd.producion();
-        solucoes_vnd[i] = custo_vnd;
-
-        auto end_vnd = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff_vnd = end_vnd - start_vnd;
-        tempos_vnd[i] = diff_vnd.count();
-
-        double media_solucao_vnd = std::accumulate(solucoes_vnd.begin(), solucoes_vnd.end(), 0.0) / n_execucoes;
-
-        double melhor_solucao_vnd = *std::min_element(solucoes_vnd.begin(), solucoes_vnd.end());
-        double media_tempo_vnd = std::accumulate(tempos_vnd.begin(), tempos_vnd.end(), 0.0) / n_execucoes;
-        double gap;
-        if (valorOtimo == 0){
-            if (media_solucao_vnd == 0){
-                gap = 0;
-            }
-        }else{
-            gap   = (melhor_solucao_vnd - valorOtimo) / valorOtimo * 100;
-        }
-        
-        resultadosVND[i] = {melhor_solucao_vnd, media_tempo_vnd, gap};
     }
 
-    /*
-    for(int i = 0; i < n_execucoes; i++){
-        std::cout << "VND: " << resultadosVND[i].melhorSolucao << " " << resultadosVND[i].tempo << " " << resultadosVND[i].gap << std::endl;
+    fruta_vnd.guloso();
+
+    double custo_vnd = fruta_vnd.producion();
+    solucoes_vnd[0] = custo_vnd;
+
+    auto end_vnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_vnd = end_vnd - start_vnd;
+    tempos_vnd[0] = diff_vnd.count();
+
+    double melhor_solucao_vnd = solucoes_vnd[0];
+    double tempo_vnd = tempos_vnd[0];
+    double gap;
+
+    if (valorOtimo == 0) {
+        gap = (melhor_solucao_vnd == 0) ? 0 : 100;  
+    } else {
+        gap = (melhor_solucao_vnd - valorOtimo) / valorOtimo * 100;
     }
-    
-    */
-    
-
-
-    Resultados resultados;
-    resultados.instancia = nomeInstancia;
-    resultados.vnd = resultadosVND[0];  
-
-    /*
-    std::cout << "Resultados computacionais:\n";
-    std::cout << "---------------------------------------------\n";
-    std::cout << "Instância: " << resultados.instancia << "\n";
-    std::cout << "Valor Otimo: "<<  valorOtimo << "\n";
-     std::cout << "---------------------------------------------\n";
-
-    */
 
     std::cout << "VND:\n";
-    std::cout << "  Melhor solução: " << resultados.vnd.melhorSolucao << "  Tempo: " << resultados.vnd.tempo << "  Gap: " << resultados.vnd.gap << "%\n\n";
+    std::cout << "  Melhor solução: " << melhor_solucao_vnd << "\n";
+    std::cout << "  Tempo: " << tempo_vnd << "\n";
+    std::cout << "  Gap: " << gap << "%\n\n";
 
     return 0;
 }

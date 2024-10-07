@@ -26,7 +26,7 @@ int main() {
     }
 
     Fruta fruta(n, t, p, m, matriz);
-    fruta.producion();
+    fruta.guloso();
 
     auto end = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> diff = end - start;

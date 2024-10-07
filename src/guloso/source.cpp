@@ -20,7 +20,7 @@ bool compararPedidos(const Pedido& a, const Pedido& b) {
     return a.prazo < b.prazo; 
 }
 
-void Fruta::producion() {
+void Fruta::guloso() {
     int tempoAtual = 0; 
     int valorTotalSolucao = 0;
     
