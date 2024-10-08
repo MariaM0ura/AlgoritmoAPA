@@ -16,7 +16,6 @@ bool compararPedidos(const Pedido& a, const Pedido& b) {
 }
 
 void Fruta::guloso() {
-    int tempoAtual = 0; 
     int valorTotalSolucao = 0;
     
     std::vector<Pedido> pedidos(n);
@@ -101,21 +100,38 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
 
     for (int i = 0; i < tamanho - 1; ++i) {
         for (int j = i + 1; j < tamanho; ++j) {
-            // Custo atual antes da inversão
-            int custoAntes = calcularCusto(pedidos, matriz);
+            std::vector<Pedido> subPedidosAntes(pedidos.begin() + i, pedidos.begin() + j + 1);
+            int custoAntes = calcularCusto(subPedidosAntes, matriz);
 
-            // Faz a inversão da subsequência entre i e j
             std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
 
-            int custoDepois = calcularCusto(pedidos, matriz);
+            std::vector<Pedido> subPedidosDepois(pedidos.begin() + i, pedidos.begin() + j + 1);
+            int custoDepois = calcularCusto(subPedidosDepois, matriz);
 
-            if (custoDepois < melhorCusto) {
-                melhorCusto = custoDepois;
-                melhora = true;
-                std::cout << "Melhoria no 2Opt - Novo custo: " << melhorCusto << std::endl;
+            /*
+            int custoVizinho = calcularCusto(pedidos, matriz);
+
+            if (custoVizinho < melhorCusto) {
+                    melhorCusto = custoVizinho;
+                    melhora = true; 
             } else {
-                 std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
+                std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
             }
+            
+            
+            */
+            if (custoDepois < custoAntes) {
+                int custoVizinho = calcularCusto(pedidos, matriz);
+                if (custoVizinho < melhorCusto) {
+                    melhorCusto = custoVizinho;
+                    melhora = true;
+                } 
+            } else {
+                std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
+            }
+
+
+            
         }
     }
     return melhora;
@@ -164,6 +180,7 @@ double Fruta::producion() {
         }
 
         if (movimento2Opt(pedidos, matriz, melhorCusto)) {
+            std::cout << "Melhoria no 2Opt - Novo custo: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }

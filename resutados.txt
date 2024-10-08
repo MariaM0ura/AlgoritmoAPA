@@ -1,81 +1,165 @@
-
+Executando o programa para cada instância...
 Executando n60A com valor ótimo 453
-  Melhor solução: 1222
-  Tempo: 0.0479224
-  Gap: 169.757%
+----------------------------------------
+Valor total (Guloso): 101197
+Custo final após VND: 1018
+VND:
+  Melhor solução: 1018
+  Tempo: 0.0313047
+  Gap: 124.724%
+
 ----------------------------------
 Executando n60B com valor ótimo 1757
-  Melhor solução: 6157
-  Tempo: 0.0395845
-  Gap: 250.427%
+----------------------------------------
+Valor total (Guloso): 418416
+Custo final após VND: 5100
+VND:
+  Melhor solução: 5100
+  Tempo: 0.0448832
+  Gap: 190.268%
+
 ----------------------------------
 Executando n60C com valor ótimo 0
+----------------------------------------
+Valor total (Guloso): 99591
+Custo final após VND: 0
+VND:
   Melhor solução: 0
-  Tempo: 0.0312782
+  Tempo: 0.0151371
   Gap: 0%
+
 ----------------------------------
 Executando n60D com valor ótimo 69102
-  Melhor solução: 78494
-  Tempo: 0.0438498
-  Gap: 13.5915%
+----------------------------------------
+Valor total (Guloso): 456575
+Custo final após VND: 77318
+VND:
+  Melhor solução: 77318
+  Tempo: 0.0293191
+  Gap: 11.8897%
+
 ----------------------------------
 Executando n60E com valor ótimo 58935
-  Melhor solução: 61178
-  Tempo: 0.044395
-  Gap: 3.80589%
+----------------------------------------
+Valor total (Guloso): 303372
+Melhoria no 2Opt - Novo custo: 80963
+Custo final após VND: 61984
+VND:
+  Melhor solução: 61984
+  Tempo: 0.037209
+  Gap: 5.1735%
+
 ----------------------------------
 Executando n60F com valor ótimo 93045
-  Melhor solução: 147664
-  Tempo: 0.0420617
-  Gap: 58.7017%
+----------------------------------------
+Valor total (Guloso): 898055
+Custo final após VND: 112862
+VND:
+  Melhor solução: 112862
+  Tempo: 0.0222653
+  Gap: 21.2983%
+
 ----------------------------------
 Executando n60G com valor ótimo 64632
-  Melhor solução: 77206
-  Tempo: 0.0438323
-  Gap: 19.4548%
+----------------------------------------
+Valor total (Guloso): 386148
+Custo final após VND: 75713
+VND:
+  Melhor solução: 75713
+  Tempo: 0.0317908
+  Gap: 17.1448%
+
 ----------------------------------
 Executando n60H com valor ótimo 145007
-  Melhor solução: 173086
-  Tempo: 0.0465329
-  Gap: 19.3639%
+----------------------------------------
+Valor total (Guloso): 852043
+Custo final após VND: 174158
+VND:
+  Melhor solução: 174158
+  Tempo: 0.033085
+  Gap: 20.1032%
+
 ----------------------------------
 Executando n60I com valor ótimo 43286
-  Melhor solução: 62605
-  Tempo: 0.0470296
-  Gap: 44.6311%
+----------------------------------------
+Valor total (Guloso): 785932
+Custo final após VND: 63443
+VND:
+  Melhor solução: 63443
+  Tempo: 0.0279336
+  Gap: 46.567%
+
 ----------------------------------
 Executando n60J com valor ótimo 53555
-  Melhor solução: 94865
-  Tempo: 0.0389493
-  Gap: 77.1357%
+----------------------------------------
+Valor total (Guloso): 890020
+Melhoria no 2Opt - Novo custo: 86640
+Custo final após VND: 80464
+VND:
+  Melhor solução: 80464
+  Tempo: 0.0344613
+  Gap: 50.2455%
+
 ----------------------------------
 Executando n60K com valor ótimo 458752
-  Melhor solução: 478618
-  Tempo: 0.0236779
-  Gap: 4.33044%
+----------------------------------------
+Valor total (Guloso): 976404
+Custo final após VND: 470476
+VND:
+  Melhor solução: 470476
+  Tempo: 0.0338583
+  Gap: 2.55563%
+
 ----------------------------------
 Executando n60L com valor ótimo 332941
-  Melhor solução: 378877
-  Tempo: 0.037213
-  Gap: 13.797%
+----------------------------------------
+Valor total (Guloso): 1267401
+Custo final após VND: 363587
+VND:
+  Melhor solução: 363587
+  Tempo: 0.02214
+  Gap: 9.20463%
+
 ----------------------------------
 Executando n60M com valor ótimo 516926
-  Melhor solução: 570729
-  Tempo: 0.0407094
-  Gap: 10.4083%
+----------------------------------------
+Valor total (Guloso): 1596016
+Custo final após VND: 574823
+VND:
+  Melhor solução: 574823
+  Tempo: 0.0154162
+  Gap: 11.2002%
+
 ----------------------------------
 Executando n60N com valor ótimo 492572
-  Melhor solução: 505869
-  Tempo: 0.0621871
-  Gap: 2.6995%
+----------------------------------------
+Valor total (Guloso): 982060
+Melhoria no 2Opt - Novo custo: 514298
+Custo final após VND: 511502
+VND:
+  Melhor solução: 511502
+  Tempo: 0.0361987
+  Gap: 3.84309%
+
 ----------------------------------
 Executando n60O com valor ótimo 527459
-  Melhor solução: 581853
-  Tempo: 0.0429908
-  Gap: 10.3125%
+----------------------------------------
+Valor total (Guloso): 1519215
+Custo final após VND: 552598
+VND:
+  Melhor solução: 552598
+  Tempo: 0.0244433
+  Gap: 4.76606%
+
 ----------------------------------
 Executando n60P com valor ótimo 396183
-  Melhor solução: 434657
-  Tempo: 0.0510392
-  Gap: 9.71117%
+----------------------------------------
+Valor total (Guloso): 1238238
+Melhoria no 2Opt - Novo custo: 470211
+Custo final após VND: 441079
+VND:
+  Melhor solução: 441079
+  Tempo: 0.0381742
+  Gap: 11.3321%
+
 ----------------------------------
