@@ -38,9 +38,11 @@ public:
     
     double producion();
     void guloso();
+
     int calcularCusto(const std::vector<Pedido>& ordemPedidos, const std::vector<std::vector<int>>& matriz) const;
+    int calcularCustoLocal(const std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int posicao);
+    
     bool movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
-    int calcularCustoSwapIncremental(const Pedido& pedido1, const Pedido& pedido2, const std::vector<std::vector<int>>& matriz);
     bool movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
     bool movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
 };
