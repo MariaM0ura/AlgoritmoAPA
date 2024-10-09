@@ -108,7 +108,6 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
     return melhora;
 }
 
-
 bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
     bool melhoria = false;
     int tamanho = pedidos.size();
@@ -138,8 +137,6 @@ bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector
 
     return melhoria;
 }
-
-
 
 bool Fruta::movimentoOrOPT(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
     bool melhoria = false;
@@ -201,7 +198,6 @@ bool Fruta::movimentoOrOPT3(std::vector<Pedido>& pedidos, const std::vector<std:
             pedidos.erase(pedidos.begin() + j, pedidos.begin() + j + 3);
         }
 
-        // Reinserir os pedidos removidos na posição original
         pedidos.insert(pedidos.begin() + i, pedidoRemovido1);
         pedidos.insert(pedidos.begin() + i + 1, pedidoRemovido2);
         pedidos.insert(pedidos.begin() + i + 2, pedidoRemovido3);
@@ -220,9 +216,6 @@ double Fruta::producion(){
 
     while (melhoria) {
         melhoria = false;
-
-
-
 
 
         if(movimentoOrOPT(pedidos, matriz, melhorCusto)){
@@ -245,10 +238,15 @@ double Fruta::producion(){
             continue;
         }
 
+        if (movimentoOrOPT3(pedidos, matriz, melhorCusto)) {
+            melhoria = true;
+            continue;
+        }
+
 
     }
 
-    std::cout << "Custo final após VND: " << melhorCusto << std::endl;
+    //std::cout << "Custo final após VND: " << melhorCusto << std::endl;
 
     return melhorCusto;
 }

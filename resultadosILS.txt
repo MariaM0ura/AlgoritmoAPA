@@ -1,0 +1,129 @@
+Executando o programa para cada instância em ILS...
+Executando n60A com valor ótimo 453
+----------------------------------------
+Valor total (Guloso): 101197
+ILS:
+  Melhor solução: 707
+  Tempo médio por iteração: 0.0320854 segundos
+  Gap: 56.0706%
+----------------------------------
+Executando n60B com valor ótimo 1757
+----------------------------------------
+Valor total (Guloso): 418416
+ILS:
+  Melhor solução: 3015
+  Tempo médio por iteração: 0.034688 segundos
+  Gap: 71.5993%
+----------------------------------
+Executando n60C com valor ótimo 0
+----------------------------------------
+Valor total (Guloso): 99591
+ILS:
+  Melhor solução: 0
+  Tempo médio por iteração: 0.0355039 segundos
+  Gap: 0%
+----------------------------------
+Executando n60D com valor ótimo 69102
+----------------------------------------
+Valor total (Guloso): 456575
+ILS:
+  Melhor solução: 71165
+  Tempo médio por iteração: 0.0424805 segundos
+  Gap: 2.98544%
+----------------------------------
+Executando n60E com valor ótimo 58935
+----------------------------------------
+Valor total (Guloso): 303372
+ILS:
+  Melhor solução: 58177
+  Tempo médio por iteração: 0.0492137 segundos
+  Gap: -1.28616%
+----------------------------------
+Executando n60F com valor ótimo 93045
+----------------------------------------
+Valor total (Guloso): 898055
+ILS:
+  Melhor solução: 98347
+  Tempo médio por iteração: 0.0475335 segundos
+  Gap: 5.69832%
+----------------------------------
+Executando n60G com valor ótimo 64632
+----------------------------------------
+Valor total (Guloso): 386148
+ILS:
+  Melhor solução: 67503
+  Tempo médio por iteração: 0.0512578 segundos
+  Gap: 4.44207%
+----------------------------------
+Executando n60H com valor ótimo 145007
+----------------------------------------
+Valor total (Guloso): 852043
+ILS:
+  Melhor solução: 161298
+  Tempo médio por iteração: 0.0490067 segundos
+  Gap: 11.2346%
+----------------------------------
+Executando n60I com valor ótimo 43286
+----------------------------------------
+Valor total (Guloso): 785932
+ILS:
+  Melhor solução: 47639
+  Tempo médio por iteração: 0.0494775 segundos
+  Gap: 10.0564%
+----------------------------------
+Executando n60J com valor ótimo 53555
+----------------------------------------
+Valor total (Guloso): 890020
+ILS:
+  Melhor solução: 61866
+  Tempo médio por iteração: 0.0452685 segundos
+  Gap: 15.5186%
+----------------------------------
+Executando n60K com valor ótimo 458752
+----------------------------------------
+Valor total (Guloso): 976404
+ILS:
+  Melhor solução: 460423
+  Tempo médio por iteração: 0.0409777 segundos
+  Gap: 0.364249%
+----------------------------------
+Executando n60L com valor ótimo 332941
+----------------------------------------
+Valor total (Guloso): 1267401
+ILS:
+  Melhor solução: 338095
+  Tempo médio por iteração: 0.0471798 segundos
+  Gap: 1.54802%
+----------------------------------
+Executando n60M com valor ótimo 516926
+----------------------------------------
+Valor total (Guloso): 1596016
+ILS:
+  Melhor solução: 539012
+  Tempo médio por iteração: 0.0430791 segundos
+  Gap: 4.27257%
+----------------------------------
+Executando n60N com valor ótimo 492572
+----------------------------------------
+Valor total (Guloso): 982060
+ILS:
+  Melhor solução: 499871
+  Tempo médio por iteração: 0.0432391 segundos
+  Gap: 1.48181%
+----------------------------------
+Executando n60O com valor ótimo 527459
+----------------------------------------
+Valor total (Guloso): 1519215
+ILS:
+  Melhor solução: 541463
+  Tempo médio por iteração: 0.043596 segundos
+  Gap: 2.65499%
+----------------------------------
+Executando n60P com valor ótimo 396183
+----------------------------------------
+Valor total (Guloso): 1238238
+ILS:
+  Melhor solução: 414516
+  Tempo médio por iteração: 0.0434356 segundos
+  Gap: 4.62741%
+----------------------------------

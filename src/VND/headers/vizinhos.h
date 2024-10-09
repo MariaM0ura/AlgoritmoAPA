@@ -2,7 +2,7 @@
 #define SOURCE_H
 
 #include <vector>
-#include <string>  // Alterado para <string> para suportar std::string
+#include <string>  
 
 struct VND {
     double melhorSolucao;
@@ -12,7 +12,7 @@ struct VND {
 
 
 struct Resultados {
-    std::string instancia;  // std::string usado corretamente
+    std::string instancia;  
     double solucaoOtima;
     VND vnd;
 };
@@ -25,14 +25,13 @@ struct Pedido {
 };
 
 class Fruta {
-private:
+public:
     int n;
     std::vector<int> t;
     std::vector<int> p;
     std::vector<int> m;
     std::vector<std::vector<int>> matriz;
 
-public:
     Fruta(int n, const std::vector<int>& t, const std::vector<int>& p, const std::vector<int>& m, const std::vector<std::vector<int>>& matriz);
     std::vector<Pedido> pedidos;
     
