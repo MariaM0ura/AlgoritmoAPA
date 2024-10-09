@@ -40,13 +40,13 @@ public:
     void guloso();
 
     int calcularCusto(const std::vector<Pedido>& ordemPedidos, const std::vector<std::vector<int>>& matriz) const;
-    int calcularCustoParcial(const std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int i, int j) const;    
-    int calcularTempoAte(const std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int inicio, int fim) const;
-
 
     bool movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
     bool movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
     bool movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
+    bool movimentoOrOPT(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
+    bool movimentoOrOPT3(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto);
+
 };
 
 #endif

@@ -66,13 +66,9 @@ int Fruta::calcularCusto(const std::vector<Pedido>& pedidos, const std::vector<s
 bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
     bool melhoria = false;
     int tamanho = pedidos.size();
-    std::vector<bool> fixado(tamanho, false);
 
     for (int i = 0; i < tamanho - 1; ++i) {
-        if (fixado[i]) continue;  
-
         for (int j = i + 1; j < tamanho; ++j) {
-            if (fixado[j]) continue;  
 
             std::swap(pedidos[i], pedidos[j]);  
 
@@ -82,8 +78,6 @@ bool Fruta::movimentoSwap(std::vector<Pedido>& pedidos, const std::vector<std::v
                 melhorCusto = custoVizinho;
                 melhoria = true;
 
-                fixado[i] = true;  
-                fixado[j] = true;
             } else {
                 std::swap(pedidos[i], pedidos[j]);  
             }            
@@ -100,15 +94,7 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
 
     for (int i = 0; i < tamanho - 1; ++i) {
         for (int j = i + 1; j < tamanho; ++j) {
-            std::vector<Pedido> subPedidosAntes(pedidos.begin() + i, pedidos.begin() + j + 1);
-            int custoAntes = calcularCusto(subPedidosAntes, matriz);
-
-            std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
-
-            std::vector<Pedido> subPedidosDepois(pedidos.begin() + i, pedidos.begin() + j + 1);
-            int custoDepois = calcularCusto(subPedidosDepois, matriz);
-
-            /*
+            
             int custoVizinho = calcularCusto(pedidos, matriz);
 
             if (custoVizinho < melhorCusto) {
@@ -117,21 +103,6 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
             } else {
                 std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
             }
-            
-            
-            */
-            if (custoDepois < custoAntes) {
-                int custoVizinho = calcularCusto(pedidos, matriz);
-                if (custoVizinho < melhorCusto) {
-                    melhorCusto = custoVizinho;
-                    melhora = true;
-                } 
-            } else {
-                std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
-            }
-
-
-            
         }
     }
     return melhora;
@@ -139,6 +110,38 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
 
 
 bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
+    bool melhoria = false;
+    int tamanho = pedidos.size();
+
+    for (int i = 0; i < tamanho; ++i) {
+        Pedido pedidoRemovido = pedidos[i]; 
+        pedidos.erase(pedidos.begin() + i);
+
+        for (int j = 0; j < tamanho - 1; ++j) { 
+            if (j >= i) j++; 
+
+            pedidos.insert(pedidos.begin() + j, pedidoRemovido);
+
+            int custoAtual = calcularCusto(pedidos, matriz);
+
+            if (custoAtual < melhorCusto) {
+                melhorCusto = custoAtual;
+                melhoria = true;
+                break; 
+            } else {
+                pedidos.erase(pedidos.begin() + j);
+            }
+        }
+
+        pedidos.insert(pedidos.begin() + i, pedidoRemovido);
+    }
+
+    return melhoria;
+}
+
+
+
+bool Fruta::movimentoOrOPT(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
     bool melhoria = false;
     int tamanho = pedidos.size();
 
@@ -165,7 +168,51 @@ bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector
     return melhoria;
 }
 
-double Fruta::producion() {
+bool Fruta::movimentoOrOPT3(std::vector<Pedido>& pedidos, const std::vector<std::vector<int>>& matriz, int& melhorCusto) {
+    bool melhoria = false;
+    int tamanho = pedidos.size();
+
+    // Iterar sobre todas as combinações de três elementos
+    for (int i = 0; i < tamanho - 2; ++i) {
+        // Salvar os pedidos a serem removidos
+        Pedido pedidoRemovido1 = pedidos[i];
+        Pedido pedidoRemovido2 = pedidos[i + 1];
+        Pedido pedidoRemovido3 = pedidos[i + 2];
+
+        // Remover os três pedidos
+        pedidos.erase(pedidos.begin() + i, pedidos.begin() + i + 3); 
+
+        // Testar inserções nas várias posições
+        for (int j = 0; j < pedidos.size() + 1; ++j) {
+            pedidos.insert(pedidos.begin() + j, pedidoRemovido1);
+            pedidos.insert(pedidos.begin() + j + 1, pedidoRemovido2);
+            pedidos.insert(pedidos.begin() + j + 2, pedidoRemovido3);
+
+            // Calcular o custo após a inserção
+            int custoVizinho = calcularCusto(pedidos, matriz);
+
+            // Verificar se encontramos uma solução melhor
+            if (custoVizinho < melhorCusto) {
+                melhorCusto = custoVizinho;
+                melhoria = true;
+            } 
+
+            // Reverter as inserções
+            pedidos.erase(pedidos.begin() + j, pedidos.begin() + j + 3);
+        }
+
+        // Reinserir os pedidos removidos na posição original
+        pedidos.insert(pedidos.begin() + i, pedidoRemovido1);
+        pedidos.insert(pedidos.begin() + i + 1, pedidoRemovido2);
+        pedidos.insert(pedidos.begin() + i + 2, pedidoRemovido3);
+    }
+
+    return melhoria;
+}
+
+
+
+double Fruta::producion(){
     std::vector<Pedido> pedidos = this->pedidos;
 
     int melhorCusto = calcularCusto(pedidos, matriz);
@@ -174,13 +221,21 @@ double Fruta::producion() {
     while (melhoria) {
         melhoria = false;
 
+
+
+
+
+        if(movimentoOrOPT(pedidos, matriz, melhorCusto)){
+            melhoria = true;
+            continue;
+        }
+
         if (movimentoSwap(pedidos, matriz, melhorCusto)) {
             melhoria = true;
             continue;
         }
 
         if (movimento2Opt(pedidos, matriz, melhorCusto)) {
-            std::cout << "Melhoria no 2Opt - Novo custo: " << melhorCusto << std::endl;
             melhoria = true;
             continue;
         }
@@ -189,6 +244,8 @@ double Fruta::producion() {
             melhoria = true;
             continue;
         }
+
+
     }
 
     std::cout << "Custo final após VND: " << melhorCusto << std::endl;
