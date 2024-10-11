@@ -1,4 +1,4 @@
-Executando o programa para cada instância em ILS.....iteração 500
+Executando o programa para cada instância em ILS.....Numero de iteração: 500
 --------------------------------- ILS ------------------------------------------------- VND ------------------------- 
 Nome da Instância Ótimo     Melhor Solução ILS Tempo Total ILS (s) Gap ILS (%)     Melhor Solução VND Tempo VND (s)   Gap VND (%)    
 n60A              453               740           15.1987        63.3554%                1049         0.0321055        131.567%

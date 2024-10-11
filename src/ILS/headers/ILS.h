@@ -14,8 +14,9 @@ struct ILS {
 
 class FrutaILS : public Fruta{
 public:
+    // Herdando o contrutor fruta do VND
     FrutaILS(int n, const std::vector<int>& t, const std::vector<int>& p, const std::vector<int>& m, const std::vector<std::vector<int>>& matriz)
-        : Fruta(n, t, p, m, matriz) {}  // Chama o construtor da classe base Fruta
+        : Fruta(n, t, p, m, matriz) {} 
 
     void perturbacaoPequeno();
     void perturbacaoAlta();

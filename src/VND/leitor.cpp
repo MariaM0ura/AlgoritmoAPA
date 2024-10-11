@@ -4,8 +4,13 @@
 #include <tuple>
 
 /*
-    Leitor.cpp vai lê o arquivo separando em cada variável e enviar para o meu main
+    Leitor.cpp vai lê o arquivo separando em cada variável e enviar para o main
+    A tupla vai receber todos os dados dos pedidos, separando eles
+    E vai retornar todos os valores  (numero de pedidos, tempo, prazo, multa, matriz de limpeza)
+    Complexidade O(n^2) por causa da matriz de limpeza
 */
+
+
 std::tuple<int, std::vector<int>, std::vector<int>, std::vector<int>, std::vector<std::vector<int>>> ler_instancia(const std::string& caminho_arquivo) {
     std::ifstream file(caminho_arquivo);
 
@@ -22,13 +27,13 @@ std::tuple<int, std::vector<int>, std::vector<int>, std::vector<int>, std::vecto
     for (int i = 0; i < num_de_pedidos; i++) file >> p[i];
     for (int i = 0; i < num_de_pedidos; i++) file >> w[i];
 
-    std::vector<std::vector<int>> s(num_de_pedidos, std::vector<int>(num_de_pedidos));
+    std::vector<std::vector<int>> matriz(num_de_pedidos, std::vector<int>(num_de_pedidos));
     for (int i = 0; i < num_de_pedidos; i++) {
         for (int j = 0; j < num_de_pedidos; j++) {
-            file >> s[i][j];
+            file >> matriz[i][j];
         }
     }
 
     file.close();
-    return std::make_tuple(num_de_pedidos, t, p, w, s);
+    return std::make_tuple(num_de_pedidos, t, p, w, matriz);
 }

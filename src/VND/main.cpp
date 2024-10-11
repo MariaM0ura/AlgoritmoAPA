@@ -9,6 +9,12 @@
 
 
 int main(int argc, char* argv[]) {
+
+    /*
+        Parte de leitura da instacia ( pelo arquivo headers/leitor.cpp) -> isso é um padrão
+        Leitura e armazenação dos dados
+    
+    */
     if (argc < 4) {
         std::cerr << "Uso: " << argv[0] << " <caminho_arquivo> <nome_instancia> <valor_otimo>\n";
         return 1;
@@ -29,9 +35,15 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    Fruta fruta_vnd(n, t, p, m, matriz);
+    /*
+        Iniciação do VND
+        Declaração da Fruta para o VND
+        Inicio de contagem do tempo
+        e separação dos pedidos
+    
+    */
 
-    auto start_vnd = std::chrono::high_resolution_clock::now();
+    Fruta fruta_vnd(n, t, p, m, matriz);
 
     std::vector<Pedido> pedidos(n);
     for (int j = 0; j < n; ++j) {
@@ -39,9 +51,12 @@ int main(int argc, char* argv[]) {
     }
 
     fruta_vnd.guloso();
+    /*
+        Chamada do VND = producao()
 
+    */
     double melhorSolucaoVND, tempoVND, gapVND;
-    std::tie(melhorSolucaoVND, tempoVND, gapVND) = fruta_vnd.producion(valorOtimo);
+    std::tie(melhorSolucaoVND, tempoVND, gapVND) = fruta_vnd.producao(valorOtimo);
 
 
     std::cout << "VND:\n";

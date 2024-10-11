@@ -47,15 +47,15 @@ clean:
 	rm -f $(OBJ_GULOSO) $(OBJ_VND) $(TARGET_GULOSO) $(TARGET_VND) $(OBJ_ILS) $(TARGET_ILS)
 
 # Regra para executar o script ./scripts/run_all.sh para executar o VND
-run_all_vnd:
-	./scripts/run_all.sh
+vnd_all:
+	./scripts/run_vnd_all.sh
 
-run_inst: $(TARGET_VND)
-	@bash ./scripts/run_inst.sh $(instancia)
+vnd_inst: $(TARGET_VND)
+	@bash ./scripts/run_vnd_inst.sh $(instancia)
 
 # Regra para executar o script ./scripts/run_all.sh Para executar o ILS
-run_all:
-	./scripts/run_all_ils.sh
+ils_all:
+	./scripts/run_ils_all.sh
 
-run_inst_ils: $(TARGET_ILS)
-	@bash ./scripts/run_inst_ils.sh $(instancia)
+ils_inst: $(TARGET_ILS)
+	@bash ./scripts/run_ils_inst.sh $(instancia)

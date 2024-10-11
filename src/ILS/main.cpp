@@ -16,7 +16,6 @@ const int ITERACOES = 1000;
 int main(int argc, char* argv[]) {
     /*
         Leitura do arquivo da instacia ( pelo arquivo headers/leitor.cpp) -> isso é um padrão
-        Ele foi modificado para que pudesse ler todos os arquivos 
     */
 
     if (argc < 4) {
@@ -57,7 +56,7 @@ int main(int argc, char* argv[]) {
     frutaILS.guloso();                                                 //GeraSolucaoInicial() -> Guloso
     
     // Solução inicial usando VND
-    auto [solucaoInicialVND, tempoVND, gapVND] = frutaILS.producion(valorOtimo); 
+    auto [solucaoInicialVND, tempoVND, gapVND] = frutaILS.producao(valorOtimo); 
     double solucaoAtual = solucaoInicialVND;
 
     bool alta = false;
@@ -74,7 +73,7 @@ int main(int argc, char* argv[]) {
     }
 
     // Busca local após a perturbação
-    double novaSolucao = frutaILS.producion(); 
+    double novaSolucao = frutaILS.producao(); 
 
     solucaoAtual = frutaILS.criterioAceitacao(solucaoAtual, novaSolucao, ACEITACAO_TOLERANCIA); 
 
