@@ -29,14 +29,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-
-    std::vector<double> solucoes_vnd(1);
-    std::vector<double> tempos_vnd(1);
-
     Fruta fruta_vnd(n, t, p, m, matriz);
-
-    std::vector<VND> resultadosVND(1);
-    std::vector<VND> resultadoFinalVND(1);
 
     auto start_vnd = std::chrono::high_resolution_clock::now();
 
@@ -47,27 +40,14 @@ int main(int argc, char* argv[]) {
 
     fruta_vnd.guloso();
 
-    double custo_vnd = fruta_vnd.producion();
-    solucoes_vnd[0] = custo_vnd;
+    double melhorSolucaoVND, tempoVND, gapVND;
+    std::tie(melhorSolucaoVND, tempoVND, gapVND) = fruta_vnd.producion(valorOtimo);
 
-    auto end_vnd = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> diff_vnd = end_vnd - start_vnd;
-    tempos_vnd[0] = diff_vnd.count();
-
-    double melhor_solucao_vnd = solucoes_vnd[0];
-    double tempo_vnd = tempos_vnd[0];
-    double gap;
-
-    if (valorOtimo == 0) {
-        gap = (melhor_solucao_vnd == 0) ? 0 : 100;  
-    } else {
-        gap = (melhor_solucao_vnd - valorOtimo) / valorOtimo * 100;
-    }
 
     std::cout << "VND:\n";
-    std::cout << "  Melhor solução: " << melhor_solucao_vnd << "\n";
-    std::cout << "  Tempo: " << tempo_vnd << "\n";
-    std::cout << "  Gap: " << gap << "%\n\n";
+    std::cout << "  Melhor solução: " << melhorSolucaoVND << "\n";
+    std::cout << "  Tempo: " << tempoVND << "\n";
+    std::cout << "  Gap: " << gapVND << "%\n\n";
 
     return 0;
 }

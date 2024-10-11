@@ -13,6 +13,8 @@
 
 */
 
+
+
 void FrutaILS::perturbacaoPequeno() {
     std::vector<Pedido> pedidos = this->pedidos;
     int tamanho = pedidos.size();
@@ -38,29 +40,45 @@ void FrutaILS::perturbacaoPequeno() {
     this->pedidos = pedidos;
 }
 
+void FrutaILS::perturbacaoAlta() {
+    std::vector<Pedido> pedidos = this->pedidos;
+    int tamanho = pedidos.size();
+    
+    static std::mt19937 rng(std::random_device{}());
+    std::uniform_int_distribution<int> dist(0, tamanho - 1);
 
-double FrutaILS::iLS(int iteracao)
-{
-    std::vector<Pedido> melhorSolucao = this->pedidos;
+    // Aumenta drasticamente a escala da perturbação
+    int numTrocas = std::min(10, tamanho); // Trocar até 10 pedidos ou o tamanho total
+    for (int k = 0; k < numTrocas; ++k) {
+        int i = dist(rng);
+        int j = dist(rng);
 
-    double melhorCusto = this->calcularCusto(melhorSolucao, this->matriz);
-    double custoAtual = melhorCusto;
-
-    for (int i = 0; i < iteracao; ++i) {
-        std::vector<Pedido> solucaoComPerturbacao = melhorSolucao;
-
-        this->perturbacaoPequeno();
-        this->pedidos = solucaoComPerturbacao;
-        custoAtual = this->calcularCusto(solucaoComPerturbacao, this->matriz);
-
-        if (custoAtual < melhorCusto) {
-            melhorCusto = custoAtual;
-            melhorSolucao = this->pedidos;
+        while (i == j) {
+            j = dist(rng);
         }
+
+        // Troca ou modifica pedidos
+        std::swap(pedidos[i], pedidos[j]);
     }
 
-    return melhorCusto;
+    // Adicionalmente, podemos inverter segmentos aleatórios para uma perturbação mais agressiva
+    if (tamanho > 2) {
+        int inicioSegmento = dist(rng);
+        int fimSegmento = dist(rng);
+        
+        if (inicioSegmento > fimSegmento) {
+            std::swap(inicioSegmento, fimSegmento);
+        }
+
+        // Inverte os pedidos dentro de um segmento aleatório
+        std::reverse(pedidos.begin() + inicioSegmento, pedidos.begin() + fimSegmento);
+    }
+
+    // Substitui a solução atual pela solução perturbada
+    this->pedidos = pedidos;
 }
+
+
 
 double FrutaILS::criterioAceitacao(double melhorSolucao, double solucaoAtual, double temperatura){
     if (solucaoAtual < melhorSolucao) {

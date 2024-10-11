@@ -30,6 +30,7 @@ for i in "${!INSTANCIAS[@]}"; do
     if [ "$INSTANCIA" == "${INSTANCIAS[$i]}" ]; then
         VALOR_OTIMO="${VALORES_OTIMOS[$i]}"
         echo "Executando $INSTANCIA com valor ótimo $VALOR_OTIMO"
+        echo "--------------------------------- ILS -------------------------------------- VND ------------------------- "
         # Executa o programa com a instância e valor ótimo correspondentes
         ./ils_exec "$INSTANCIAS_DIR/$INSTANCIA.txt" "$INSTANCIA" "$VALOR_OTIMO"
         echo "----------------------------------"

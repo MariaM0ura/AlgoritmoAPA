@@ -1,12 +1,14 @@
 #include "../VND/leitor.cpp"
 #include "headers/ILS.h"
+#include "../VND/headers/vizinhos.h"
 #include <vector>
 #include <chrono>
 #include <iostream>
 #include <string>
 #include <cstdlib>
 #include <numeric>
-#include "../VND/headers/vizinhos.h" 
+#include <algorithm>
+#include <iomanip> 
 
 const double ACEITACAO_TOLERANCIA = 0.1;
 const int ITERACOES = 1000;
@@ -44,10 +46,8 @@ int main(int argc, char* argv[]) {
         Construtor da classe Fruta (ILS.h)
     */
 
-    //std::cout << "Iniciando ILS\n";
     FrutaILS frutaILS(n, t, p, m, matriz);
 
-    // Vetores para armazenar soluções e tempos
     std::vector<double> solucaoILS(ITERACOES);
     std::vector<double> tempoILS(ITERACOES);
     
@@ -57,43 +57,69 @@ int main(int argc, char* argv[]) {
     frutaILS.guloso();                                                 //GeraSolucaoInicial() -> Guloso
     
     // Solução inicial usando VND
-    double solucaoInicialVND = frutaILS.producion(); 
+    auto [solucaoInicialVND, tempoVND, gapVND] = frutaILS.producion(valorOtimo); 
     double solucaoAtual = solucaoInicialVND;
 
+    bool alta = false;
+    std::vector<double> ultimasSolucoes;                        // Armazena as últimas 10 soluções para calcular a média
+
     for (int iter = 0; iter < ITERACOES; ++iter) {
-        auto start_vnd = std::chrono::high_resolution_clock::now();
+    auto start_vnd = std::chrono::high_resolution_clock::now();
+    double solucaoAnterior = solucaoAtual;  
 
-        frutaILS.perturbacaoPequeno(); // Inicia a perturbação na solução encontrada
-        
-        // Busca local após a perturbação
-        double novaSolucao = frutaILS.producion(); 
-
-        // Aceitação da nova solução
-        solucaoAtual = frutaILS.criterioAceitacao(solucaoAtual, novaSolucao, ACEITACAO_TOLERANCIA); 
-
-        solucaoILS[iter] = solucaoAtual; // Armazena a solução desta iteração
-
-        auto end_vnd = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> diff_vnd = end_vnd - start_vnd;
-        tempoILS[iter] = diff_vnd.count();
-
-        // Verifica se a solução atual é a melhor
-        if (solucaoAtual < melhorSolucao) {
-            melhorSolucao = solucaoAtual;
-            //std::cout << "Melhorou a solução com ILS: " << melhorSolucao << " (Solução do VND: " << solucaoInicialVND << ")\n";
-        }
-
-        // Calcula o gap em relação ao valor ótimo
-        if (valorOtimo != 0) {
-            gap = (melhorSolucao - valorOtimo) / valorOtimo * 100.0;
-        }
+    if (alta) {
+        frutaILS.perturbacaoAlta();  
+    } else {
+        frutaILS.perturbacaoPequeno(); 
     }
 
-    // Mostra o melhor resultado ao final das iterações
-    std::cout << "ILS:\n";
-    std::cout << "  Melhor solução: " << melhorSolucao << "\n";
-    std::cout << "  Tempo médio por iteração: " << std::accumulate(tempoILS.begin(), tempoILS.end(), 0.0) / ITERACOES << " segundos\n";
-    std::cout << "  Gap: " << gap << "%\n";
+    // Busca local após a perturbação
+    double novaSolucao = frutaILS.producion(); 
+
+    solucaoAtual = frutaILS.criterioAceitacao(solucaoAtual, novaSolucao, ACEITACAO_TOLERANCIA); 
+
+    solucaoILS[iter] = solucaoAtual;
+
+    ultimasSolucoes.push_back(solucaoAtual);
+    if (ultimasSolucoes.size() > 10) {
+        ultimasSolucoes.erase(ultimasSolucoes.begin()); 
+    }
+
+    double somaUltimasSolucoes = std::accumulate(ultimasSolucoes.begin(), ultimasSolucoes.end(), 0.0);
+    double mediaUltimasSolucoes = somaUltimasSolucoes / ultimasSolucoes.size();
+
+    // Se a soma for maior que 20 e a média das últimas 10 for menor que 100000, ativa perturbação alta
+    if (somaUltimasSolucoes > 20 && mediaUltimasSolucoes < 10000) {
+        alta = true;
+    }
+
+    auto end_vnd = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> diff_vnd = end_vnd - start_vnd;
+    tempoILS[iter] = diff_vnd.count();
+
+    // Verifica se a solução atual é a melhor
+    if (solucaoAtual < melhorSolucao) {
+        melhorSolucao = solucaoAtual;
+    }
+
+    // Calcula o gap em relação ao valor ótimo
+    if (valorOtimo != 0) {
+        gap = (melhorSolucao - valorOtimo) / valorOtimo * 100.0;
+        if(gap == 0) break;
+    }
+}
+
+
+
+std::cout << std::setw(11) << std::left << nomeInstancia 
+          << std::setw(10) << std::right << valorOtimo 
+          << std::setw(18) << std::right << melhorSolucao 
+          << std::setw(18) << std::right << std::accumulate(tempoILS.begin(), tempoILS.end(), 0.0) 
+          << std::setw(15) << std::right << gap << "%" 
+          << std::setw(20) << std::right << solucaoInicialVND 
+          << std::setw(18) << std::right << tempoVND 
+          << std::setw(15) << std::right << gapVND << "%" 
+          << std::endl;
 
     return 0;
 }

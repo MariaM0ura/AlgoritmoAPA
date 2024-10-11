@@ -22,13 +22,17 @@ cd ..
 
 # Executa o programa para cada instância
 echo "Executando o programa para cada instância em ILS..."
+echo "--------------------------------- ILS ------------------------------------------------- VND ------------------------- "
+
+printf "%-15s %-10s %-15s %-15s %-15s %-15s %-15s %-15s\n" \
+       "Nome da Instância" "Ótimo" "Melhor Solução ILS" "Tempo Total ILS (s)" \
+       "Gap ILS (%)" "Melhor Solução VND" "Tempo VND (s)" "Gap VND (%)"
+
 
 for i in "${!INSTANCIAS[@]}"; do
     INSTANCIA="${INSTANCIAS[$i]}"
     VALOR_OTIMO="${VALORES_OTIMOS[$i]}"
-    echo "Executando $INSTANCIA com valor ótimo $VALOR_OTIMO"
     # Executa o programa com a instância e valor ótimo correspondentes
     ./build/main "$INSTANCIAS_DIR/$INSTANCIA.txt" "$INSTANCIA" "$VALOR_OTIMO"
-    
-    echo "----------------------------------"
+
 done
