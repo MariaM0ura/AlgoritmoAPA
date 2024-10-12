@@ -55,4 +55,25 @@
 
   <h1> Organizando pela Matriz de limpeza <h1>
   <p> A ordem dos pedidos vai depender da limpeza</p>
-<div/>
+  <p>procedimento ILS 
+  1 so GeraSolucaoInicial(); # Aqui foi usado o Guloso
+  2 s← Busca Local(so);      # Aqui foi usado o vnd
+  3 enquanto (os critérios de parada não estiverem satisfeitos) faça
+  4 s' Perturbacao (histórico, s);
+  5 s" ← Busca Local(s');
+  6 s← CriterioAceitacao(s, s", histórico);
+  8 fim-enquanto;
+  fim ILS;
+  </p>
+
+  <h1>Algoritmo Guloso<h1>
+
+Tomam decisões baseadas em escolhas locais ótimas na esperança de que essas escolhas levem a uma solução global ótima. 
+Eles seguem o princípio da ganância (ou "greed"), fazendo a melhor escolha possível em cada etapa, sem reavaliar ou retroceder as decisões.
+
+ler as instancias
+ordernar por prazo 
+A multa ele deve ser determinada sempre depois uma produção
+
+
+</div>

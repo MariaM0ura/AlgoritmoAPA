@@ -6,12 +6,6 @@
 #include "../../VND/headers/vizinhos.h" 
 
 
-struct ILS {
-    double melhorSolucao;
-    double tempo;
-    double gap;
-};
-
 class FrutaILS : public Fruta{
 public:
     // Herdando o contrutor fruta do VND
