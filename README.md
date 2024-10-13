@@ -46,7 +46,7 @@
     Eles seguem o princípio da ganância (ou "greed"), fazendo a melhor escolha possível em cada etapa, sem reavaliar ou retroceder as decisões.  
   </p>
 
-  <h5>Procedimento</h5>
+  <h4>Procedimento</h4>
   <p>
     1. s ← GeraSolucaoInicial(); # Aqui geramos uma solução inicial<br>
     2. Ordena os pedidos através da prioridade aplicada (ex: prazo ou tempo de processamento);<br>
@@ -73,7 +73,7 @@
     </li>
   </ul>
 
-  <h5>Procedimento VND(f(.), N(.), r, s):</h5>
+  <h4>Procedimento VND(f(.), N(.), r, s):</h4>
   <p><br>
   1. Seja k o número de estruturas diferentes de vizinhança;<br>
   2. k ← 1; {Tipo de estrutura de vizinhança corrente}<br>
@@ -98,7 +98,7 @@
 <p>
   O objetivo principal da ILS é evitar que o algoritmo fique preso em ótimos locais locais, os quais são comuns em métodos de busca local. Ao introduzir perturbações, a ILS facilita a busca por soluções melhores, permitindo que a busca local seja reiniciada a partir de uma nova solução, que pode ser significativamente diferente da anterior.
 </p>
-<h5>Procedimento ILS:</h5>
+<h4>Procedimento ILS:</h4>
 
   <p> 
     <br>
@@ -112,5 +112,37 @@
     fim ILS;
   </p>
 
+  <h1>Instruções para Executar o Código</h1>
+  
+  <h2>Descrição</h2>
+  <p>Este projeto contém implementações de algoritmos de otimização, incluindo o ILS (Iterated Local Search) e o VND (Variable Neighborhood Descent). As instâncias estão localizadas no diretório <strong>instancias</strong>, e o código pode ser compilado e executado para analisar diferentes instâncias.</p>
+  
+  <h2>Requisitos</h2>
+  <ul>
+      <li>gcc ou g++ (compilador C++)</li>
+      <li>Make (ferramenta para automatizar o processo de compilação)</li>
+  </ul>
+  <h2>Compilação</h2>
+  <p>Para compilar o projeto, acesse o diretório onde o <strong>Makefile</strong> está localizado e execute o seguinte comando:</p>
+  <pre>make</pre>
+  <p>Esse comando compilará todos os componentes necessários para o funcionamento do projeto.</p>
+  
+  <h2>Execução</h2>
+  <p>Para iniciar a execução do algoritmo ILS com todas as instâncias disponíveis, utilize o seguinte comando:</p>
+  <pre>make ils_all</pre>
+  
+  <p>Se você deseja executar o algoritmo ILS com uma instância específica, substitua <strong>n60</strong> pelo nome da instância desejada e utilize o seguinte comando:</p>
+  <pre>make ils_inst instancia=n60</pre>
+  
+  <p>Adicionalmente, é possível executar apenas o VND. Para isso, você pode utilizar os seguintes comandos:</p>
+  <ul>
+      <li><strong>Executar todas as instâncias do VND:</strong></li>
+      <pre>make vnd_all</pre>
+      <li><strong>Executar uma instância específica do VND:</strong></li>
+      <pre>make vnd_inst instancia=n60</pre>
+  </ul>
+  <p>Certifique-se de substituir <strong>n60</strong> pelo nome da instância desejada em ambos os comandos para garantir a execução correta.</p>
+  
+  
 
 </div>
