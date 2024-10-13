@@ -35,10 +35,11 @@ $(TARGET_VND): $(OBJ_VND)
 	$(CXX) $(CXXFLAGS) -o $(TARGET_VND) $(OBJ_VND)
 
 # Regras para compilar o executável do ILS
-$(TARGET_ILS): $(OBJ_ILS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET_ILS) $(OBJ_ILS)
+# Regras para compilar o executável do ILS
+$(TARGET_ILS): $(OBJ_ILS) $(SRCDIR_VND)/vizinhos.o
+	$(CXX) $(CXXFLAGS) -o $(TARGET_ILS) $(OBJ_ILS) $(SRCDIR_VND)/vizinhos.o
 
-# Regra para compilar arquivos .cpp em .o (tanto para guloso quanto para VND)
+# Regra para compilar arquivos .cpp em .o
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
@@ -53,7 +54,7 @@ vnd_all:
 vnd_inst: $(TARGET_VND)
 	@bash ./scripts/run_vnd_inst.sh $(instancia)
 
-# Regra para executar o script ./scripts/run_all.sh Para executar o ILS
+# Regra para executar o script ./scripts/run_all.sh para executar o ILS
 ils_all:
 	./scripts/run_ils_all.sh
 

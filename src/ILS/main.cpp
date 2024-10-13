@@ -80,7 +80,6 @@ int main(int argc, char* argv[]) {
     auto start_total = std::chrono::high_resolution_clock::now();  
 
     for (int iter = 0; iter < ITERACOES; ++iter) {
-        double solucaoAnterior = solucaoAtual;  
 
         if (alta) {
             frutaILS.perturbacaoAlta();  
@@ -108,6 +107,7 @@ int main(int argc, char* argv[]) {
             alta = true;
         }
 
+        //novo criterio de aceitação 
         if (solucaoAtual < melhorSolucao) {
             melhorSolucao = solucaoAtual;
         }

@@ -2,17 +2,14 @@
 
 # Diretório onde as instâncias estão localizadas
 INSTANCIAS_DIR="instancias"
-VALORES_OTIMOS=( 453 1757 0 69102 58935 93045 64632 145007 43286 53555 458752 332941 516926 492572 527459 396183)
+VALORES_OTIMOS=(453 1757 0 69102 58935 93045 64632 145007 43286 53555 458752 332941 516926 492572 527459 396183)
 
 # Arquivos das instâncias
-INSTANCIAS=( "n60A" "n60B" "n60C" "n60D" "n60E" "n60F" "n60G" "n60H" "n60I" "n60J" "n60K" "n60L" "n60M" "n60N" "n60O" "n60P")
-
-# Compila o código usando o Makefile
-make $(TARGET_ILS)
+INSTANCIAS=("n60A" "n60B" "n60C" "n60D" "n60E" "n60F" "n60G" "n60H" "n60I" "n60J" "n60K" "n60L" "n60M" "n60N" "n60O" "n60P")
 
 # Verifica se o executável foi gerado
 if [ ! -f ./ils_exec ]; then
-    echo "Erro: Executável não encontrado!"
+    echo "Erro: Executável 'ils_exec' não encontrado! Por favor, compile usando 'make'."
     exit 1
 fi
 
@@ -33,7 +30,6 @@ for i in "${!INSTANCIAS[@]}"; do
         echo "--------------------------------- ILS -------------------------------------- VND ------------------------- "
         # Executa o programa com a instância e valor ótimo correspondentes
         ./ils_exec "$INSTANCIAS_DIR/$INSTANCIA.txt" "$INSTANCIA" "$VALOR_OTIMO"
-        echo "----------------------------------"
         exit 0
     fi
 done
