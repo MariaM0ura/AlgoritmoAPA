@@ -34,34 +34,74 @@
       5 10 15 20 0 ]
   </p>
     
-  <h5>Etapas e prazos</h5>
+
+
+  </p>
+
+  <h1> Etapas e Resoluções</h1>
+
+  <h3> Algoritmo Guloso </h3>
   <p>
-    Este projeto contém os seguintes entregáveis:<br>
-    • Implementação de ao menos um algoritmo guloso para a geração de uma solução viável.<br>
-    • Implementação de pelo menos 3 movimentos de vizinhança.<br>
-    • Implementação do algoritmo de busca local chamado VND (Variable Neighborhood Descent).<br>
-    • Implementação de uma meta-heurística (OPCIONAL). Sugestões: GRASP ou ILS.<br>
-    • Resultados computacionais: criar uma tabela que contenha os resultados obtidos pela(s) heurística(s)
-    construtiva(s) e pelo VND, e que compare tais resultados com a solução ótima de cada instância.<br>
-    Essa tabela deverá conter os seguintes dados para cada heurística construtiva e para o VND:<br>
-    – Média do valor da solução (em no mínimo 10 execuções para cada instância caso exista
-    algum fator aleatório no algoritmo)<br>
-    – Melhor solução encontrada<br>
-    – Média do tempo gasto pelo respectivo algoritmo<br>
-    – GAP para a solução ótima
+    Tomapm decisões baseadas em escolhas locais ótimas na esperança de que essas escolhas levem a uma solução global ótima. 
+    Eles seguem o princípio da ganância (ou "greed"), fazendo a melhor escolha possível em cada etapa, sem reavaliar ou retroceder as decisões.  
   </p>
 
-  <p> 
-    Caso decida implementar a <h3>meta-heurística</h3>, é necessário adicionar uma coluna de resultados para ela na
-    tabela.
+  <h5>Procedimento</h5>
+  <p>
+    1. s ← GeraSolucaoInicial(); # Aqui geramos uma solução inicial<br>
+    2. Ordena os pedidos através da prioridade aplicada (ex: prazo ou tempo de processamento);<br>
+    3. s' ← GeraNovaSolução(s); # Gera uma nova solução com base na prioridade dos pedidos<br>
+    4. Retorna solução s';<br>
   </p>
 
-  <h1>Organizando pela Matriz de limpeza</h1>
-  <p> 
-    A ordem dos pedidos vai depender da limpeza.
+  <h3>Variable Neighbourhood Descent (VND)</h3>
+  <p>
+    Método de busca local que explora o espaço de soluções por meio de trocas sistemáticas de vizinhança. O VND se baseia na ideia de que, ao alternar entre diferentes estruturas de vizinhança, é possível encontrar soluções melhores e evitar ficar preso em ótimos locais. Os movimentos de vizinhança implementados foram:
   </p>
+  <ul>
+    <li>
+      <strong>Movimento Or-Opt:</strong> Este movimento envolve a remoção de um pedido de sua posição atual e a reinserção em uma nova posição, melhorando potencialmente a solução ao considerar diferentes sequências de pedidos.
+    </li>
+    <li>
+      <strong>Movimento Swap:</strong> Neste movimento, dois pedidos são trocados de lugar na sequência. Esse tipo de movimentação pode ajudar a encontrar uma solução com menor custo, ajustando a ordem de processamento dos pedidos.
+    </li>
+    <li>
+      <strong>Movimento 2-Opt:</strong> O movimento 2-Opt é uma técnica que remove dois segmentos da rota atual e os reconecta de uma maneira diferente, resultando em uma nova sequência que pode reduzir o custo total.
+    </li>
+    <li>
+      <strong>Movimento Reinsertion:</strong> Esse movimento consiste em remover um pedido de sua posição e reinseri-lo em outra posição, permitindo ajustes na ordem de processamento que podem levar a melhorias significativas na solução.
+    </li>
+  </ul>
+
+  <h5>Procedimento VND(f(.), N(.), r, s):</h5>
+  <p><br>
+  1. Seja k o número de estruturas diferentes de vizinhança;<br>
+  2. k ← 1; {Tipo de estrutura de vizinhança corrente}<br>
+  3. enquanto (k ≤ r) faça:<br> # Também pode ser while
+  4. &nbsp;&nbsp; Encontre o melhor vizinho s' ∈ N(k)(s);<br>
+  5. &nbsp;&nbsp; se (f(s') < f(s)) então<br>
+  6. &nbsp;&nbsp;&nbsp;&nbsp; s ← s';<br>
+  7. &nbsp;&nbsp;&nbsp;&nbsp; k ← 1;<br>
+  8. &nbsp;&nbsp; senão<br>
+  9. &nbsp;&nbsp;&nbsp;&nbsp; k ← k + 1;<br>
+  10. &nbsp;&nbsp; fim-se;<br>
+  11. fim-enquanto;<br>
+  12. Retorne s;<br>
+</p>
+
+
+
+<h3>ILS (Iterated Local Search)</h3>
+<p>
+  A ILS (Iterated Local Search) é uma meta-heurística que se baseia na ideia de que um procedimento de busca local pode ser melhorado gerando novas soluções de partida. Essas novas soluções são obtidas por meio de perturbações na solução atual, permitindo uma exploração mais ampla do espaço de busca.
+</p>
+<p>
+  O objetivo principal da ILS é evitar que o algoritmo fique preso em ótimos locais locais, os quais são comuns em métodos de busca local. Ao introduzir perturbações, a ILS facilita a busca por soluções melhores, permitindo que a busca local seja reiniciada a partir de uma nova solução, que pode ser significativamente diferente da anterior.
+</p>
+<h5>Procedimento ILS:</h5>
+
   <p> 
-    Procedimento ILS:<br>
+    <br>
     1. so GeraSolucaoInicial(); # Aqui foi usado o Guloso<br>
     2. s← Busca Local(so);      # Aqui foi usado o VND<br>
     3. enquanto (os critérios de parada não estiverem satisfeitos) faça<br>
@@ -72,12 +112,5 @@
     fim ILS;
   </p>
 
-  <h1>Algoritmo Guloso</h1>
-  <p>
-    Tomam decisões baseadas em escolhas locais ótimas na esperança de que essas escolhas levem a uma solução global ótima. 
-    Eles seguem o princípio da ganância (ou "greed"), fazendo a melhor escolha possível em cada etapa, sem reavaliar ou retroceder as decisões.<br>
-    Ler as instâncias<br>
-    Ordenar por prazo<br>
-    A multa deve ser determinada sempre depois da produção.
-  </p>
+
 </div>
