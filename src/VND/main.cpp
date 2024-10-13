@@ -45,10 +45,7 @@ int main(int argc, char* argv[]) {
 
     Fruta fruta_vnd(n, t, p, m, matriz);
 
-    std::vector<Pedido> pedidos(n);
-    for (int j = 0; j < n; ++j) {
-            pedidos[j] = {j, t[j], p[j], m[j]};
-    }
+
 
     fruta_vnd.guloso();
     /*

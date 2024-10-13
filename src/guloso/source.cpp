@@ -23,6 +23,7 @@ bool compararPedidos(const Pedido& a, const Pedido& b) {
 void Fruta::guloso() {
     int tempoAtual = 0; 
     int valorTotalSolucao = 0;
+    double valorOtimo = 396183;
     
     std::vector<Pedido> pedidos(n);
 
@@ -76,6 +77,11 @@ void Fruta::guloso() {
 
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Valor total da solução: " << valorTotalSolucao << std::endl;
+    double gap = 0.0;
+    if (valorOtimo != 0) {
+    gap = (valorTotalSolucao - valorOtimo) / valorOtimo * 100.0;
+    }
+    std::cout << "Gap: " << gap << "%" << std::endl;
     
     
 }

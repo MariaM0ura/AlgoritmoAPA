@@ -4,10 +4,11 @@
 #include <iostream>
 #include "leitor.cpp"
 
+
 int main() {
     auto start = std::chrono::high_resolution_clock::now();
 
-    std::string caminho_arquivo = "instancias/instancia.txt";
+    std::string caminho_arquivo = "instancias/n60P.txt";
 
     double valorOtimo = 360;
     if(valorOtimo == 0){

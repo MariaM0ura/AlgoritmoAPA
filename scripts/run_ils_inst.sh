@@ -22,12 +22,16 @@ fi
 # Obtém a instância fornecida
 INSTANCIA=$1
 
+echo "--------------------------------- ILS -------------------------------------- VND ------------------------- "
+printf "%-15s %-10s %-15s %-15s %-15s %-15s %-15s %-15s\n" \
+       "Nome da Instância" "Ótimo" "Melhor Solução ILS" "Tempo Total ILS (s)" \
+       "Gap ILS (%)" "Melhor Solução VND" "Tempo VND (s)" "Gap VND (%)"
+
+
 # Encontra a instância na lista
 for i in "${!INSTANCIAS[@]}"; do
     if [ "$INSTANCIA" == "${INSTANCIAS[$i]}" ]; then
         VALOR_OTIMO="${VALORES_OTIMOS[$i]}"
-        echo "Executando $INSTANCIA com valor ótimo $VALOR_OTIMO"
-        echo "--------------------------------- ILS -------------------------------------- VND ------------------------- "
         # Executa o programa com a instância e valor ótimo correspondentes
         ./ils_exec "$INSTANCIAS_DIR/$INSTANCIA.txt" "$INSTANCIA" "$VALOR_OTIMO"
         exit 0
