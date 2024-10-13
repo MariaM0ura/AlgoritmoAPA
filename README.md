@@ -1,42 +1,35 @@
 <div>
-  <h1>Problema de Otimização:</h1>
+  <h1>Problema de Otimização</h1>
   <p>
-    Seja n o número de pedidos que devem ser processados em um determinado dia na linha de
-    produção da fábrica. Cada pedido i ∈ {1, . . . , n} requer um tempo ti (em minutos) para ser
-    processado e deve ser concluído até o tempo pi. Entre o processamento de dois pedidos, pode
-    ser necessário a limpeza e/ou adequação do tipo de embalagem. Sendo assim, consideramos
-    que sij especifica o tempo (em minutos) necessário para preparar a linha de produção para
-    processar o pedido j logo após o pedido i, onde i, j ∈ {1, . . . , n} e i ≠ j. Caso um pedido i
-    seja finalizado após o tempo pi, a empresa paga uma multa por atraso Mi = wi ∗ (Ci − pi)
-    (Multa = max(0, Valor Multa por Minuto * (Tempo de Conclusão − Prazo))), onde Ci especifica o tempo de término do processamento do pedido i e wi determina o valor
-    da multa por minuto de atraso associada ao pedido i. O objetivo do problema é obter a
-    sequência de processamento dos pedidos na linha de produção de forma a garantir que todos
-    os pedidos sejam processados e que a soma das multas por atraso seja mínima.
+      Considere que <strong>n</strong> é o número de pedidos que devem ser processados em um determinado dia na linha de produção da fábrica. Cada pedido <strong>i</strong> (onde <strong>i</strong> pertence a {1, . . . , <strong>n</strong>}) requer um tempo <strong>t<sub>i</sub></strong> (em minutos) para ser processado e deve ser concluído até o tempo <strong>p<sub>i</sub></strong>. Entre o processamento de dois pedidos, pode ser necessário realizar a limpeza e/ou a adequação do tipo de embalagem. Assim, consideramos que <strong>s<sub>ij</sub></strong> especifica o tempo (em minutos) necessário para preparar a linha de produção para processar o pedido <strong>j</strong> logo após o pedido <strong>i</strong>, onde <strong>i</strong> e <strong>j</strong> pertencem a {1, . . . , <strong>n</strong>} e <strong>i ≠ j</strong>. 
   </p>
-
+  <p>
+      Se um pedido <strong>i</strong> for finalizado após o tempo <strong>p<sub>i</sub></strong>, a empresa deverá pagar uma multa por atraso dada por <strong>M<sub>i</sub> = w<sub>i</sub> × (C<sub>i</sub> − p<sub>i</sub>)</strong>. Essa multa é calculada como <strong>max(0, Valor Multa por Minuto × (Tempo de Conclusão − Prazo))</strong>, onde <strong>C<sub>i</sub></strong> representa o tempo de término do processamento do pedido <strong>i</strong> e <strong>w<sub>i</sub></strong> determina o valor da multa por minuto de atraso associado ao pedido <strong>i</strong>. O objetivo é determinar a sequência de processamento dos pedidos na linha de produção de maneira a garantir que todos sejam atendidos e que a soma das multas por atraso seja minimizada.
+  </p>
+  
   <h5>Instância</h5>
   <p>
-    numeros_de_pedidos<br>
-    array_t (tempo dos pedidos)<br>
-    array_p (tempo de prazo dos pedidos à medida que corre o tempo)<br>
-    array_w (Multa de atraso)<br>
-    matriz_s (tempo de preparação de linha (limpeza para o próximo pedido))<br><br>
-    exemplo:<br>
-    [5]                    número de pedidos<br>
-    [15, 25, 20, 30, 20]   tempo de fabricação<br>
-    [25, 45, 75, 120, 135] prazo de fabricação<br>
-    [10, 12, 30, 15, 10]   multa por atraso em segundo<br><br>
-    Matriz de limpeza:<br>
-    [ 0  10 15 8 21<br>
-      10 0 10 13 9<br>
-      17 9 0 10 14 <br>
-      11 13 12 0 10<br>
-      5 10 15 20 0 ]
+      Para representar a instância do problema, consideramos os seguintes elementos:<br>
+      - <strong>números_de_pedidos</strong>: quantidade total de pedidos a serem processados<br>
+      - <strong>array_t</strong>: vetor que contém os tempos de processamento dos pedidos<br>
+      - <strong>array_p</strong>: vetor que contém os prazos de conclusão dos pedidos<br>
+      - <strong>array_w</strong>: vetor que indica a multa por atraso para cada pedido<br>
+      - <strong>matriz_s</strong>: matriz que indica os tempos de preparação da linha (limpeza) entre os pedidos<br><br>
+      Exemplo de instância:<br>
+      - [5]                      número de pedidos<br>
+      - [15, 25, 20, 30, 20]     tempos de fabricação<br>
+      - [25, 45, 75, 120, 135]   prazos de fabricação<br>
+      - [10, 12, 30, 15, 10]     multas por atraso em segundos<br><br>
+      Matriz de limpeza:<br>
+      <pre>
+      [ 0  10 15  8 21
+        10  0 10 13  9
+        17  9  0 10 14 
+        11 13 12  0 10
+        5  10 15 20  0 ]
+      </pre>
   </p>
-    
 
-
-  </p>
 
   <h1> Etapas e Resoluções</h1>
 
