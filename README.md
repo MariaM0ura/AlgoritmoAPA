@@ -126,23 +126,23 @@
   <p>Para compilar o projeto, acesse o diretório onde o <strong>Makefile</strong> está localizado e execute o seguinte comando:</p>
   <pre>make</pre>
   <p>Esse comando compilará todos os componentes necessários para o funcionamento do projeto.</p>
-  
+
   <h2>Execução</h2>
   <p>Para iniciar a execução do algoritmo ILS com todas as instâncias disponíveis, utilize o seguinte comando:</p>
   <pre>make ils_all</pre>
-  
-  <p>Se você deseja executar o algoritmo ILS com uma instância específica, substitua <strong>n60</strong> pelo nome da instância desejada e utilize o seguinte comando:</p>
-  <pre>make ils_inst instancia=n60</pre>
-  
+
+  <p>Se você deseja executar o algoritmo ILS com uma instância específica, substitua <strong>n60A</strong> pelo nome da instância desejada e utilize o seguinte comando:</p>
+  <pre>make ils_inst instancia=n60A</pre>
+
   <p>Adicionalmente, é possível executar apenas o VND. Para isso, você pode utilizar os seguintes comandos:</p>
   <ul>
       <li><strong>Executar todas as instâncias do VND:</strong></li>
       <pre>make vnd_all</pre>
       <li><strong>Executar uma instância específica do VND:</strong></li>
-      <pre>make vnd_inst instancia=n60</pre>
+      <pre>make vnd_inst instancia=n60A</pre>
   </ul>
-  <p>Certifique-se de substituir <strong>n60</strong> pelo nome da instância desejada em ambos os comandos para garantir a execução correta.</p>
-  
-  
+  <p>Certifique-se de substituir <strong>n60A</strong> pelo nome da instância desejada em ambos os comandos para garantir a execução correta.</p>
+
+
 
 </div>
