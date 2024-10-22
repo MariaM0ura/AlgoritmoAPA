@@ -9,7 +9,7 @@ INSTANCIAS=("n60A" "n60B" "n60C" "n60D" "n60E" "n60F" "n60G" "n60H" "n60I" "n60J
 
 # Compila o código (caso ainda não esteja compilado)
 cd build
-g++ -o main ../src/VND/main.cpp ../src/VND/vizinhos.cpp
+g++ -o main ../src/VND/main.cpp ../src/VND/vnd.cpp
 
 # Verifica se o executável foi gerado
 if [ ! -f ./main ]; then

@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <string> 
-#include "../../VND/headers/vizinhos.h" 
+#include "../../VND/headers/vnd.h" 
 
 
 class FrutaILS : public Fruta{

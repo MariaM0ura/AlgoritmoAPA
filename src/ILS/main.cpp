@@ -1,6 +1,5 @@
 #include "../VND/leitor.cpp"
-#include "headers/ILS.h"
-#include "../VND/headers/vizinhos.h"
+#include "../VND/headers/vnd.h"
 #include <vector>
 #include <chrono>
 #include <iostream>
@@ -105,11 +104,6 @@ int main(int argc, char* argv[]) {
 
         if (somaUltimasSolucoes > 20 && mediaUltimasSolucoes < 10000) {
             alta = true;
-        }
-
-        //novo criterio de aceitação 
-        if (solucaoAtual < melhorSolucao) {
-            melhorSolucao = solucaoAtual;
         }
 
         if (melhorSolucao == valorOtimo) {

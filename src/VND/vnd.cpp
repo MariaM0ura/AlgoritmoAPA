@@ -1,4 +1,4 @@
-#include "headers/vizinhos.h"
+#include "headers/vnd.h"
 #include <algorithm>
 #include <limits>
 #include <vector>
@@ -246,8 +246,6 @@ bool Fruta::movimentoOrOPT(std::vector<Pedido>& pedidos, const std::vector<std::
     Se ele encontrar uma melhoria, volta para o inicio do while e continua rodando
     Saira do while, se e somente se não houver melhoria em nenhum dos movimentos de vizinhaça
     retorna o melhorCusto encontrado por busca local
-
-
 */
 std::tuple<double, double, double> Fruta::producao(double valorOtimo){
   std::vector<Pedido> pedidos = this->pedidos;
