@@ -114,9 +114,8 @@ bool Fruta::movimentoSwap(std::vector<Pedido> &pedidos, const std::vector<std::v
                 melhorCusto = custoVizinho;
                 melhoria = true;
 
-            } else {
-                std::swap(pedidos[i], pedidos[j]);  
-            }            
+            }
+                std::swap(pedidos[i], pedidos[j]);            
         }
     }
 
@@ -145,9 +144,8 @@ bool Fruta::movimento2Opt(std::vector<Pedido>& pedidos, const std::vector<std::v
             if (custoVizinho < melhorCusto) {
                     melhorCusto = custoVizinho;
                     melhora = true; 
-            } else {
-                std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
-            }
+            } 
+            std::reverse(pedidos.begin() + i, pedidos.begin() + j + 1);
         }
     }
     return melhora;
@@ -182,9 +180,10 @@ bool Fruta::movimentoReinsertion(std::vector<Pedido>& pedidos, const std::vector
                 melhorCusto = custoAtual;
                 melhoria = true;
                 break; 
-            } else {
-                pedidos.erase(pedidos.begin() + j);
-            }
+            } 
+            
+            pedidos.erase(pedidos.begin() + j);
+            
         }
 
         pedidos.insert(pedidos.begin() + i, pedidoRemovido);
@@ -220,10 +219,9 @@ bool Fruta::movimentoOrOPT(std::vector<Pedido>& pedidos, const std::vector<std::
             if (custoVizinho < melhorCusto) {
                 melhorCusto = custoVizinho;
                 melhoria = true;
-            } else {
+            } 
                 pedidos.erase(pedidos.begin() + j);
                 pedidos.insert(pedidos.begin() + i, pedidoRemovido); 
-            }
         }
     }
 
